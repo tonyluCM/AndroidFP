@@ -1,4 +1,4 @@
-package edu.cs371m.reddit
+package edu.cs371m.finalproject
 
 import androidx.test.rule.ActivityTestRule
 
@@ -15,9 +15,9 @@ import androidx.test.espresso.action.ViewActions.pressBack
 import androidx.test.espresso.contrib.RecyclerViewActions
 import androidx.test.espresso.contrib.RecyclerViewActions.actionOnItemAtPosition
 import androidx.test.espresso.matcher.ViewMatchers.*
-import edu.cs371m.reddit.RecyclerViewChildActions.Companion.actionOnChild
-import edu.cs371m.reddit.RecyclerViewChildActions.Companion.childOfViewAtPositionWithMatcher
-import edu.cs371m.reddit.ui.PostRowAdapter
+import edu.cs371m.finalproject.RecyclerViewChildActions.Companion.actionOnChild
+import edu.cs371m.finalproject.RecyclerViewChildActions.Companion.childOfViewAtPositionWithMatcher
+import edu.cs371m.finalproject.ui.PostRowAdapter
 import junit.framework.Assert.assertTrue
 import org.hamcrest.CoreMatchers.equalTo
 

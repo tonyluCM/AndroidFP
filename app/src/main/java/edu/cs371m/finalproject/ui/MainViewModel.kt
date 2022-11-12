@@ -1,18 +1,24 @@
-package edu.cs371m.reddit.ui
+package edu.cs371m.finalproject.ui
 
 
 import android.content.Context
 import android.content.Intent
-import android.util.Log
 import androidx.lifecycle.*
-import edu.cs371m.reddit.api.RedditApi
-import edu.cs371m.reddit.api.RedditPost
-import edu.cs371m.reddit.api.RedditPostRepository
+import edu.cs371m.finalproject.api.RedditApi
+import edu.cs371m.finalproject.api.RedditPost
+import edu.cs371m.finalproject.api.RedditPostRepository
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.ViewModel
+import com.google.firebase.auth.FirebaseAuth
 
 // XXX Much to write
 class MainViewModel : ViewModel() {
+    private var displayName = MutableLiveData("Uninitialized")
+    private var email = MutableLiveData("Uninitialized")
+    private var uid = MutableLiveData("Uninitialized")
     private var title = MutableLiveData<String>()
     private var searchTerm = MutableLiveData<String>()
     private var subreddit = MutableLiveData<String>().apply {
@@ -42,6 +48,35 @@ class MainViewModel : ViewModel() {
         // Update LiveData from IO dispatcher, use postValue
         subredditlist.postValue(redditrepository.getSubreddits())
 
+    }
+
+    private fun userLogout() {
+        displayName.postValue("No user")
+        email.postValue("No email, no active user")
+        uid.postValue("No uid, no active user")
+    }
+
+    fun updateUser() {
+        // XXX Write me. Update user data in view model
+        val user = FirebaseAuth.getInstance().currentUser
+        displayName.postValue(user?.displayName)
+        email.postValue(user?.email)
+        uid.postValue(user?.uid)
+
+    }
+
+    fun observeDisplayName() : LiveData<String> {
+        return displayName
+    }
+    fun observeEmail() : LiveData<String> {
+        return email
+    }
+    fun observeUid() : LiveData<String> {
+        return uid
+    }
+    fun signOut() {
+        FirebaseAuth.getInstance().signOut()
+        userLogout()
     }
     //Thanks to the filter list example
     private val searchedredditposts =MediatorLiveData<List<RedditPost>>().apply {

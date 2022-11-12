@@ -1,16 +1,14 @@
-package edu.cs371m.reddit.ui.subreddits
+package edu.cs371m.finalproject.ui.subreddits
 
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.recyclerview.widget.LinearLayoutManager
-import edu.cs371m.reddit.MainActivity
-import edu.cs371m.reddit.databinding.FragmentRvBinding
-import edu.cs371m.reddit.ui.MainViewModel
+import edu.cs371m.finalproject.databinding.FragmentRvBinding
+import edu.cs371m.finalproject.ui.MainViewModel
 
 class Subreddits : Fragment() {
     // XXX initialize viewModel

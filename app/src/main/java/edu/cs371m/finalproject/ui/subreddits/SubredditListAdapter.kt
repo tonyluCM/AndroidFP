@@ -1,25 +1,19 @@
-package edu.cs371m.reddit.ui.subreddits
+package edu.cs371m.finalproject.ui.subreddits
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
-import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentActivity
-import androidx.fragment.app.FragmentManager
 import androidx.fragment.app.FragmentTransaction
 import androidx.fragment.app.commit
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
-import edu.cs371m.reddit.MainActivity
-import edu.cs371m.reddit.R
-import edu.cs371m.reddit.api.RedditPost
-import edu.cs371m.reddit.databinding.RowSubredditBinding
-import edu.cs371m.reddit.glide.Glide
-import edu.cs371m.reddit.ui.HomeFragment
-import edu.cs371m.reddit.ui.MainViewModel
-import edu.cs371m.reddit.ui.PostRowAdapter
-import android.util.Log
-import androidx.lifecycle.ViewTreeLifecycleOwner
-import androidx.lifecycle.findViewTreeLifecycleOwner
+import edu.cs371m.finalproject.R
+import edu.cs371m.finalproject.api.RedditPost
+import edu.cs371m.finalproject.databinding.RowSubredditBinding
+import edu.cs371m.finalproject.glide.Glide
+import edu.cs371m.finalproject.ui.HomeFragment
+import edu.cs371m.finalproject.ui.MainViewModel
+import edu.cs371m.finalproject.ui.PostRowAdapter
 
 // NB: Could probably unify with PostRowAdapter if we had two
 // different VH and override getItemViewType

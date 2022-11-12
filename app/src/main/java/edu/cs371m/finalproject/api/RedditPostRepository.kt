@@ -1,8 +1,8 @@
-package edu.cs371m.reddit.api
+package edu.cs371m.finalproject.api
 
 import android.text.SpannableString
 import com.google.gson.GsonBuilder
-import edu.cs371m.reddit.MainActivity
+import edu.cs371m.finalproject.MainActivity
 
 class RedditPostRepository(private val redditApi: RedditApi) {
     // NB: This is for our testing.

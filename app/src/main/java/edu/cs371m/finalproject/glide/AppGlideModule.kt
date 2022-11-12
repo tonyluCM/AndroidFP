@@ -1,4 +1,4 @@
-package edu.cs371m.reddit.glide
+package edu.cs371m.finalproject.glide
 
 import android.content.Context
 import android.content.res.Resources
@@ -11,8 +11,8 @@ import com.bumptech.glide.annotation.GlideModule
 import com.bumptech.glide.load.resource.bitmap.RoundedCorners
 import com.bumptech.glide.module.AppGlideModule
 import com.bumptech.glide.request.RequestOptions
-import edu.cs371m.reddit.MainActivity
-import edu.cs371m.reddit.R
+import edu.cs371m.finalproject.MainActivity
+import edu.cs371m.finalproject.R
 
 
 @GlideModule

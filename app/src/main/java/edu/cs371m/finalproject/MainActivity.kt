@@ -1,4 +1,4 @@
-package edu.cs371m.reddit
+package edu.cs371m.finalproject
 
 import android.os.Bundle
 import android.text.Editable
@@ -8,8 +8,6 @@ import android.view.Menu
 import android.view.MenuInflater
 import android.view.MenuItem
 import android.view.inputmethod.InputMethodManager
-import android.widget.TextView
-import android.widget.Toolbar
 import androidx.activity.viewModels
 import androidx.appcompat.app.ActionBar
 import androidx.appcompat.app.AppCompatActivity
@@ -17,15 +15,14 @@ import androidx.core.view.MenuProvider
 import androidx.fragment.app.FragmentTransaction
 import androidx.fragment.app.commit
 import androidx.lifecycle.ViewTreeLifecycleOwner
-import androidx.lifecycle.lifecycleScope
-import edu.cs371m.reddit.api.RedditPost
-import edu.cs371m.reddit.databinding.ActionBarBinding
-import edu.cs371m.reddit.databinding.ActivityMainBinding
-import edu.cs371m.reddit.ui.Favorites
-import edu.cs371m.reddit.ui.HomeFragment
-import edu.cs371m.reddit.ui.MainViewModel
-import edu.cs371m.reddit.ui.subreddits.Subreddits
-import edu.cs371m.reddit.ui.OnePost
+import com.firebase.ui.auth.FirebaseAuthUIActivityResultContract
+import edu.cs371m.finalproject.databinding.ActionBarBinding
+import edu.cs371m.finalproject.databinding.ActivityMainBinding
+import edu.cs371m.finalproject.ui.Favorites
+import edu.cs371m.finalproject.ui.HomeFragment
+import edu.cs371m.finalproject.ui.MainViewModel
+import edu.cs371m.finalproject.ui.subreddits.Subreddits
+import edu.cs371m.finalproject.ui.AuthInit
 
 class MainActivity : AppCompatActivity() {
     // This allows us to do better testing
@@ -39,7 +36,10 @@ class MainActivity : AppCompatActivity() {
     }
     private var actionBarBinding: ActionBarBinding? = null
     private val viewModel: MainViewModel by viewModels()
-
+    private val signInLauncher =
+        registerForActivityResult(FirebaseAuthUIActivityResultContract()) {
+            viewModel.updateUser()
+        }
     // An Android nightmare
     // https://stackoverflow.com/questions/1109022/close-hide-the-android-soft-keyboard
     // https://stackoverflow.com/questions/7789514/how-to-get-activitys-windowtoken-without-view
@@ -168,5 +168,6 @@ class MainActivity : AppCompatActivity() {
         actionBarLaunchFavorites()
         actionBarSearch()
         viewModel.setTitleToSubreddit()
+        AuthInit(viewModel, signInLauncher)
     }
 }

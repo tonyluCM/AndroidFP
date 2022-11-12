@@ -1,22 +1,15 @@
-package edu.cs371m.reddit.ui
+package edu.cs371m.finalproject.ui
 
-import android.app.Activity
-import android.content.Intent
-import android.graphics.Color
 import android.os.Bundle
-import android.text.Editable
-import android.text.TextWatcher
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.activity.result.contract.ActivityResultContracts
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
-import edu.cs371m.reddit.MainActivity
-import edu.cs371m.reddit.databinding.FragmentRvBinding
+import edu.cs371m.finalproject.databinding.FragmentRvBinding
 
 
 // XXX Write most of this file

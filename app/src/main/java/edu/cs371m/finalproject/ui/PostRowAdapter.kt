@@ -1,18 +1,14 @@
-package edu.cs371m.reddit.ui
+package edu.cs371m.finalproject.ui
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
-import android.util.Log
-import androidx.core.net.toUri
-import androidx.lifecycle.viewModelScope
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
-import edu.cs371m.reddit.MainActivity
-import edu.cs371m.reddit.R
-import edu.cs371m.reddit.api.RedditPost
-import edu.cs371m.reddit.databinding.RowPostBinding
-import edu.cs371m.reddit.glide.Glide
+import edu.cs371m.finalproject.R
+import edu.cs371m.finalproject.api.RedditPost
+import edu.cs371m.finalproject.databinding.RowPostBinding
+import edu.cs371m.finalproject.glide.Glide
 
 /**
  * Created by witchel on 8/25/2019

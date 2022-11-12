@@ -1,12 +1,10 @@
-package edu.cs371m.reddit.api
+package edu.cs371m.finalproject.api
 
 import android.graphics.Color
  import android.text.Spannable
 import android.text.SpannableString
-import android.text.SpannableStringBuilder
 import android.text.style.ForegroundColorSpan
 import androidx.core.text.clearSpans
-import androidx.core.text.toSpannable
 import com.google.gson.annotations.SerializedName
 
 data class RedditPost (

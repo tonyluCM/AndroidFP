@@ -1,4 +1,4 @@
-package edu.cs371m.reddit.ui
+package edu.cs371m.finalproject.ui
 
 import android.os.Bundle
 import android.util.Log
@@ -6,16 +6,14 @@ import android.view.*
 import androidx.core.view.MenuHost
 import androidx.core.view.MenuProvider
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.FragmentActivity
-import androidx.fragment.app.FragmentManager
 import androidx.fragment.app.FragmentTransaction
 import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.commit
 import androidx.lifecycle.Lifecycle
 import androidx.recyclerview.widget.LinearLayoutManager
-import edu.cs371m.reddit.MainActivity
-import edu.cs371m.reddit.R
-import edu.cs371m.reddit.databinding.FragmentRvBinding
+import edu.cs371m.finalproject.MainActivity
+import edu.cs371m.finalproject.R
+import edu.cs371m.finalproject.databinding.FragmentRvBinding
 
 class Favorites: Fragment() {
     // XXX initialize viewModel

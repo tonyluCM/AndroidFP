@@ -1,4 +1,4 @@
-package edu.cs371m.reddit
+package edu.cs371m.finalproject
 
 
 import android.view.View

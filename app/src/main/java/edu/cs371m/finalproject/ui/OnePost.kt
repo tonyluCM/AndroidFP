@@ -1,24 +1,12 @@
-package edu.cs371m.reddit.ui
+package edu.cs371m.finalproject.ui
 
 
-import android.app.Activity
-import android.content.Intent
-import androidx.core.view.MenuProvider
 import android.os.Bundle
 import android.text.method.ScrollingMovementMethod
-import android.util.Log
-import android.view.LayoutInflater
 import android.view.MenuItem
-import android.view.View
-import android.view.ViewGroup
-import android.widget.Toolbar
-import androidx.fragment.app.activityViewModels
-import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
-import edu.cs371m.reddit.MainActivity
-import edu.cs371m.reddit.databinding.ActivityOnePostBinding
+import edu.cs371m.finalproject.databinding.ActivityOnePostBinding
 import androidx.appcompat.app.AppCompatActivity
-import edu.cs371m.reddit.glide.Glide
+import edu.cs371m.finalproject.glide.Glide
 
 
 
