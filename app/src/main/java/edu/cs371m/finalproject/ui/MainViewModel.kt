@@ -78,6 +78,7 @@ class MainViewModel : ViewModel() {
         FirebaseAuth.getInstance().signOut()
         userLogout()
     }
+/**
     //Thanks to the filter list example
     private val searchedredditposts =MediatorLiveData<List<RedditPost>>().apply {
         addSource(searchTerm)    { value = filterPosts()}
@@ -127,7 +128,7 @@ class MainViewModel : ViewModel() {
             it.searchFor(searchValue)
         }
     }
-
+**/
     // Looks pointless, but if LiveData is set up properly, it will fetch posts
     // from the network
     fun repoFetch() {
@@ -175,6 +176,7 @@ class MainViewModel : ViewModel() {
     fun removeFavorite(redditpost: RedditPost) {
         favoritelist.value = favoritelist.value?.minus(redditpost)?: listOf(redditpost)
     }
+    /**
     //searching ones
     fun observeSearchedRedditPosts(): LiveData<List<RedditPost>>
     {
@@ -190,7 +192,7 @@ class MainViewModel : ViewModel() {
     fun setSearchTerm(s: String) {
         searchTerm.value = s
     }
-
+**/
     // Convenient place to put it as it is shared
     companion object {
         const val titleKey = "titleKey"

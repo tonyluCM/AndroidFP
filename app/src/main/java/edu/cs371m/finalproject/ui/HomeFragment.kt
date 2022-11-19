@@ -68,10 +68,12 @@ class HomeFragment: Fragment() {
             adapter.submitList(it)
             adapter.notifyDataSetChanged()
         }
+        /**
         viewModel.observeSearchedRedditPosts().observe(viewLifecycleOwner){
             adapter.submitList(it)
             adapter.notifyDataSetChanged()
         }
+        **/
         notifyWhenFragmentForegrounded(adapter)
 
 

@@ -66,12 +66,14 @@ class Favorites: Fragment() {
             adapter.submitList(it)
             adapter.notifyDataSetChanged()
         }
+        /**
         viewModel.observeSearchedFavoriteList().observe(viewLifecycleOwner)
         {
             adapter.submitList(it)
             adapter.notifyDataSetChanged()
 
         }
+        **/
 
 
         // Add to menu

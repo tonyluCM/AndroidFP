@@ -18,11 +18,8 @@ import androidx.lifecycle.ViewTreeLifecycleOwner
 import com.firebase.ui.auth.FirebaseAuthUIActivityResultContract
 import edu.cs371m.finalproject.databinding.ActionBarBinding
 import edu.cs371m.finalproject.databinding.ActivityMainBinding
-import edu.cs371m.finalproject.ui.Favorites
-import edu.cs371m.finalproject.ui.HomeFragment
-import edu.cs371m.finalproject.ui.MainViewModel
+import edu.cs371m.finalproject.ui.*
 import edu.cs371m.finalproject.ui.subreddits.Subreddits
-import edu.cs371m.finalproject.ui.AuthInit
 
 class MainActivity : AppCompatActivity() {
     // This allows us to do better testing
@@ -31,6 +28,7 @@ class MainActivity : AppCompatActivity() {
         lateinit var jsonAww100: String
         lateinit var subreddit1: String
         private const val mainFragTag = "mainFragTag"
+        private const val initialPageTag = "initialPageTag"
         private const val favoritesFragTag = "favoritesFragTag"
         private const val subredditsFragTag = "subredditsFragTag"
     }
@@ -86,6 +84,7 @@ class MainActivity : AppCompatActivity() {
 
     }
 
+    /**
     // XXX check out addTextChangedListener
     private fun actionBarSearch() {
         // XXX Write me
@@ -104,16 +103,14 @@ class MainActivity : AppCompatActivity() {
             }
         })
     }
-
-    private fun addHomeFragment() {
-        // No back stack for home
+**/
+    private fun addInitialPage(){
         supportFragmentManager.commit {
-            add(R.id.main_frame, HomeFragment.newInstance(), mainFragTag)
+            add(R.id.main_frame, InitialPage.newInstance(), initialPageTag)
             // TRANSIT_FRAGMENT_FADE calls for the Fragment to fade away
             setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE)
         }
     }
-
     private fun initDebug() {
         if(globalDebug) {
             assets.list("")?.forEach {
@@ -161,13 +158,13 @@ class MainActivity : AppCompatActivity() {
             }
         })
 
-        addHomeFragment()
+        addInitialPage()
         initDebug()
         initTitleObservers()
         actionBarTitleLaunchSubreddit()
         actionBarLaunchFavorites()
-        actionBarSearch()
-        viewModel.setTitleToSubreddit()
-        AuthInit(viewModel, signInLauncher)
+        //actionBarSearch()
+        //viewModel.setTitleToSubreddit()
+        //AuthInit(viewModel, signInLauncher)
     }
 }

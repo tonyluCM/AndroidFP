@@ -55,11 +55,13 @@ class Subreddits : Fragment() {
             adapter.submitList(it)
             adapter.notifyDataSetChanged()
         }
+        /**
         viewModel.observeSearchedSubRedditList().observe(viewLifecycleOwner)
         {
             adapter.submitList(it)
             adapter.notifyDataSetChanged()
         }
+        **/
 
     }
 
