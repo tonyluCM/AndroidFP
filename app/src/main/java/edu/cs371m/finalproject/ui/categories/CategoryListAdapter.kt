@@ -29,7 +29,7 @@ class CategoryListAdapter(private val viewModel: MainViewModel,
         init {
             //XXX Write me.
             rowcategoryBinding.root.setOnClickListener{
-                val clickedCategory = getItem(adapterPosition).strCategory?.toString()
+                val clickedCategory = getItem(adapterPosition).strCategory.toString()
 
                 //exit current fragment
                 fragmentActivity.supportFragmentManager.popBackStack()
