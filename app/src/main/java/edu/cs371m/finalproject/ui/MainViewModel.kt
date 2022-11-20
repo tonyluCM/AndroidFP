@@ -32,7 +32,7 @@ class MainViewModel : ViewModel() {
     private val mealapi = MealApi.create()
     private val mealrepository = MealsRepository(mealapi)
 
-    private val categoryList = MediatorLiveData<List<Categories>>()
+    private val categoryList = MediatorLiveData<List<Category>>()
     private val mealsInCategoryList = MediatorLiveData<List<Meals>>()
     private val mealList = MediatorLiveData<List<Meals>>()
 
@@ -175,7 +175,7 @@ class MainViewModel : ViewModel() {
     {
         mealId.value = tempid
     }
-    fun observeCategory(): LiveData<List<Categories>>
+    fun observeCategory(): LiveData<List<Category>>
     {
         return categoryList
     }

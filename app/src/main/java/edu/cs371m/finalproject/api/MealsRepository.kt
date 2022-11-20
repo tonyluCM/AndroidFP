@@ -7,7 +7,7 @@ import retrofit2.http.Query
 
 class MealsRepository(private val mealApi: MealApi) {
 
-    suspend fun getCategories() : List<Categories>
+    suspend fun getCategories() : List<Category>
     {
         return mealApi.getCategories().categories
     }

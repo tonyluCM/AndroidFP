@@ -26,7 +26,7 @@ interface MealApi {
 
     // I just looked at the response and "parsed" it by eye
     data class MealsResponse(val meals: List<Meals>)
-    data class CategoriesResponse(val categories: List<Categories>)
+    data class CategoriesResponse(val categories: List<Category>)
 
     // This class allows Retrofit to parse items in our model of type
     // SpannableString.  Note, given the amount of "work" we do to

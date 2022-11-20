@@ -1,13 +1,9 @@
 package edu.cs371m.finalproject.api
 
-import android.graphics.Color
-import android.text.Spannable
 import android.text.SpannableString
-import android.text.style.ForegroundColorSpan
-import androidx.core.text.clearSpans
 import com.google.gson.annotations.SerializedName
 
-data class Categories (
+data class Category (
     @SerializedName("id")
     val idCategory: String,
     @SerializedName("name")
