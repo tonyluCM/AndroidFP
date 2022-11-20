@@ -15,30 +15,18 @@ import retrofit2.http.Path
 import retrofit2.http.Query
 import java.lang.reflect.Type
 
+interface MealApi {
+    @GET("api/json/v1/1/categories.php")
+    suspend fun getCategories() : CategoriesResponse
+    @GET("api/json/v1/1/filter.php?c={mealCategory}")
+    suspend fun getMealsByCategory(@Path("mealCategory") mealCategory: String) : MealsResponse
+    @GET("api/json/v1/1/lookup.php?i={mealId}")
+    suspend fun getMealByID(@Path("mealId") mealId: String):MealsResponse
 
-interface RedditApi {
-    // XXX Write me, two function prototypes with Retrofit annotations
-    // @GET contains a string appended to the base URL
-    // the string is called a path name
-    // You can add a parameter to the path name like this
-    // @GET("/r/{subreddit}/")
-    // suspend fun getPosts(@Path("subreddit") subreddit: String) : xxxxxx
-    // The reddit api docs are here: https://www.reddit.com/dev/api/#GET_hot
-    @GET("/r/{subreddit}/.json?limit=100")
-    suspend fun getPosts(@Path("subreddit") subreddit: String) : ListingResponse
-    @GET("/subreddits/popular.json?limit=100")
-    suspend fun getSubreddits() : ListingResponse
-    // NB: Everything below here is fine, no need to change it
 
-    // https://www.reddit.com/dev/api/#listings
-    class ListingResponse(val data: ListingData)
-
-    class ListingData(
-        val children: List<RedditChildrenResponse>,
-        val after: String?,
-        val before: String?
-    )
-    data class RedditChildrenResponse(val data: RedditPost)
+    // I just looked at the response and "parsed" it by eye
+    data class MealsResponse(val meals: List<Meals>)
+    data class CategoriesResponse(val categories: List<Categories>)
 
     // This class allows Retrofit to parse items in our model of type
     // SpannableString.  Note, given the amount of "work" we do to
@@ -66,10 +54,10 @@ interface RedditApi {
         //private const val BASE_URL = "https://www.reddit.com/"
         var httpurl = HttpUrl.Builder()
             .scheme("https")
-            .host("www.reddit.com")
+            .host("www.themealdb.com")
             .build()
-        fun create(): RedditApi = create(httpurl)
-        private fun create(httpUrl: HttpUrl): RedditApi {
+        fun create(): MealApi = create(httpurl)
+        private fun create(httpUrl: HttpUrl): MealApi {
             val client = OkHttpClient.Builder()
                 .addInterceptor(HttpLoggingInterceptor().apply {
                     // Enable basic HTTP logging to help with debugging.
@@ -81,7 +69,7 @@ interface RedditApi {
                 .client(client)
                 .addConverterFactory(buildGsonConverterFactory())
                 .build()
-                .create(RedditApi::class.java)
+                .create(MealApi::class.java)
         }
     }
 }

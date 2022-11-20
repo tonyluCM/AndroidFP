@@ -4,15 +4,13 @@ package edu.cs371m.finalproject.ui
 import android.content.Context
 import android.content.Intent
 import androidx.lifecycle.*
-import edu.cs371m.finalproject.api.RedditApi
-import edu.cs371m.finalproject.api.RedditPost
-import edu.cs371m.finalproject.api.RedditPostRepository
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.google.firebase.auth.FirebaseAuth
+import edu.cs371m.finalproject.api.*
 
 // XXX Much to write
 class MainViewModel : ViewModel() {
@@ -20,12 +18,25 @@ class MainViewModel : ViewModel() {
     private var email = MutableLiveData("Uninitialized")
     private var uid = MutableLiveData("Uninitialized")
     private var title = MutableLiveData<String>()
-    private var searchTerm = MutableLiveData<String>()
+    //private var searchTerm = MutableLiveData<String>()
     private var subreddit = MutableLiveData<String>().apply {
         value = "aww"
     }
-
+    private var mealCategory = MutableLiveData<String>().apply{
+        value = "Beef"
+    }
+    private var mealId = MutableLiveData<String>().apply{
+        value = "52959"
+    }
     // XXX Write netPosts/searchPosts
+    private val mealapi = MealApi.create()
+    private val mealrepository = MealsRepository(mealapi)
+
+    private val categoryList = MediatorLiveData<List<Categories>>()
+    private val mealsInCategoryList = MediatorLiveData<List<Meals>>()
+    private val mealList = MediatorLiveData<List<Meals>>()
+
+    //old
     private val redditpostapi = RedditApi.create()
     private val redditrepository = RedditPostRepository(redditpostapi)
 
@@ -48,6 +59,25 @@ class MainViewModel : ViewModel() {
         // Update LiveData from IO dispatcher, use postValue
         subredditlist.postValue(redditrepository.getSubreddits())
 
+    }
+    //Tao
+    fun netCategories() = viewModelScope.launch(
+        context = viewModelScope.coroutineContext
+                + Dispatchers.IO) {
+        // Update LiveData from IO dispatcher, use postValue
+        categoryList.postValue(mealrepository.getCategories())
+    }
+    fun netMealsInCategory() = viewModelScope.launch(
+        context = viewModelScope.coroutineContext
+                + Dispatchers.IO) {
+        // Update LiveData from IO dispatcher, use postValue
+        mealsInCategoryList.postValue(mealrepository.getMealsByCategory(mealCategory.value.toString()))
+    }
+    fun netMeal() = viewModelScope.launch(
+        context = viewModelScope.coroutineContext
+                + Dispatchers.IO) {
+        // Update LiveData from IO dispatcher, use postValue
+        mealList.postValue(mealrepository.getMealByID(mealId.value.toString()))
     }
 
     private fun userLogout() {
@@ -135,6 +165,33 @@ class MainViewModel : ViewModel() {
         val fetch = subreddit.value
         subreddit.value = fetch
     }
+
+    //Tao
+    fun setMealCategory(tempcategory:String)
+    {
+        mealCategory.value = tempcategory
+    }
+    fun setMealId(tempid:String)
+    {
+        mealId.value = tempid
+    }
+    fun observeCategory(): LiveData<List<Categories>>
+    {
+        return categoryList
+    }
+    //set meal category before netting it
+    fun observeMealsInCategory(): LiveData<List<Meals>>
+    {
+        return mealsInCategoryList
+    }
+    //set meal id before netting it
+    fun observeMeal(): LiveData<List<Meals>>
+    {
+        return mealList
+    }
+
+
+
 
     fun observeTitle(): LiveData<String> {
         return title
