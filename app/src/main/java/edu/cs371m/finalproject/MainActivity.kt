@@ -1,13 +1,9 @@
 package edu.cs371m.finalproject
 
 import android.os.Bundle
-import android.text.Editable
-import android.text.TextWatcher
-import android.util.Log
 import android.view.Menu
 import android.view.MenuInflater
 import android.view.MenuItem
-import android.view.inputmethod.InputMethodManager
 import androidx.activity.viewModels
 import androidx.appcompat.app.ActionBar
 import androidx.appcompat.app.AppCompatActivity
@@ -15,36 +11,31 @@ import androidx.core.view.MenuProvider
 import androidx.fragment.app.FragmentTransaction
 import androidx.fragment.app.commit
 import androidx.lifecycle.ViewTreeLifecycleOwner
-import com.firebase.ui.auth.FirebaseAuthUIActivityResultContract
 import edu.cs371m.finalproject.databinding.ActionBarBinding
 import edu.cs371m.finalproject.databinding.ActivityMainBinding
 import edu.cs371m.finalproject.ui.*
-import edu.cs371m.finalproject.ui.subreddits.Subreddits
+import edu.cs371m.finalproject.ui.categories.Categories
+
 
 class MainActivity : AppCompatActivity() {
     // This allows us to do better testing
     companion object {
         var globalDebug = false
         lateinit var jsonAww100: String
-        lateinit var subreddit1: String
-        private const val mainFragTag = "mainFragTag"
+       // lateinit var subreddit1: String
+       // private const val mainFragTag = "mainFragTag"
         private const val initialPageTag = "initialPageTag"
-        private const val favoritesFragTag = "favoritesFragTag"
-        private const val subredditsFragTag = "subredditsFragTag"
+       // private const val favoritesFragTag = "favoritesFragTag"
+       // private const val subredditsFragTag = "subredditsFragTag"
+
+        private const val categoriesFragTag = "categoriesFragTag"
+
+
     }
     private var actionBarBinding: ActionBarBinding? = null
     private val viewModel: MainViewModel by viewModels()
-    private val signInLauncher =
-        registerForActivityResult(FirebaseAuthUIActivityResultContract()) {
-            viewModel.updateUser()
-        }
-    // An Android nightmare
-    // https://stackoverflow.com/questions/1109022/close-hide-the-android-soft-keyboard
-    // https://stackoverflow.com/questions/7789514/how-to-get-activitys-windowtoken-without-view
-    fun hideKeyboard() {
-        val imm = getSystemService(INPUT_METHOD_SERVICE) as InputMethodManager
-        imm.hideSoftInputFromWindow(window.decorView.rootView.windowToken, 0)
-    }
+
+
 
     // https://stackoverflow.com/questions/24838155/set-onclick-listener-on-action-bar-title-in-android/29823008#29823008
     private fun initActionBar(actionBar: ActionBar) {
@@ -56,21 +47,22 @@ class MainActivity : AppCompatActivity() {
         actionBar.customView = actionBarBinding?.root
     }
 
-    private fun actionBarTitleLaunchSubreddit()  {
+    private fun actionBarTitleLaunchCategories()  {
         // XXX Write me actionBarBinding
 
-            actionBarBinding!!.actionTitle.setOnClickListener {
-                if(viewModel.observeTitle().value != "Pick"&&viewModel.observeTitle().value != "Favorites") {
-                    supportFragmentManager.commit {
-                        replace(R.id.main_frame, Subreddits.newInstance(), subredditsFragTag)
-                        // TRANSIT_FRAGMENT_FADE calls for the Fragment to fade away
-                        setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE)
-                    }
+        actionBarBinding?.actionTitle?.setOnClickListener {
+            if(supportFragmentManager.backStackEntryCount==0) {
+                supportFragmentManager.commit {
+                    replace(R.id.main_frame, Categories.newInstance(), categoriesFragTag)
+                    // TRANSIT_FRAGMENT_FADE calls for the Fragment to fade away
+                    setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE)
                 }
             }
 
+        }
+
     }
-    fun actionBarLaunchFavorites() {
+   /* fun actionBarLaunchFavorites() {
         // XXX Write me actionBarBinding
                 actionBarBinding!!.actionFavorite.setOnClickListener {
                     if(viewModel.observeTitle().value != "Pick"&&viewModel.observeTitle().value != "Favorites") {
@@ -82,7 +74,7 @@ class MainActivity : AppCompatActivity() {
                 }
 
 
-    }
+    }*/
 
     /**
     // XXX check out addTextChangedListener
@@ -111,19 +103,7 @@ class MainActivity : AppCompatActivity() {
             setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE)
         }
     }
-    private fun initDebug() {
-        if(globalDebug) {
-            assets.list("")?.forEach {
-                Log.d(javaClass.simpleName, "Asset file: $it" )
-            }
-            jsonAww100 = assets.open("aww.hot.1.100.json.transformed.txt").bufferedReader().use {
-                it.readText()
-            }
-            subreddit1 = assets.open("subreddits.1.json.txt").bufferedReader().use {
-                it.readText()
-            }
-        }
-    }
+
     private fun initTitleObservers() {
         // Observe title changes
         viewModel.observeTitle().observe(ViewTreeLifecycleOwner.get(findViewById(R.id.actionTitle))!!)
@@ -159,12 +139,14 @@ class MainActivity : AppCompatActivity() {
         })
 
         addInitialPage()
-        initDebug()
+       // initDebug()
         initTitleObservers()
-        actionBarTitleLaunchSubreddit()
-        actionBarLaunchFavorites()
+       // actionBarTitleLaunchSubreddit()
+        actionBarTitleLaunchCategories()
+     //   actionBarLaunchFavorites()
         //actionBarSearch()
         //viewModel.setTitleToSubreddit()
         //AuthInit(viewModel, signInLauncher)
+
     }
 }

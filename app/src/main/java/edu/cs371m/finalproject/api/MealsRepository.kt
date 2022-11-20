@@ -11,11 +11,11 @@ class MealsRepository(private val mealApi: MealApi) {
     {
         return mealApi.getCategories().categories
     }
-    suspend fun getMealsByCategory(mealCategory: String) : List<Meals>
+    suspend fun getMealsByCategory(mealCategory: String) : List<Meal>
     {
         return mealApi.getMealsByCategory(mealCategory).meals
     }
-    suspend fun getMealByID(mealId: String): List<Meals>
+    suspend fun getMealByID(mealId: String): List<Meal>
     {
         return mealApi.getMealByID(mealId).meals
     }

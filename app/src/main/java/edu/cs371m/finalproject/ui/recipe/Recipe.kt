@@ -1,26 +1,24 @@
-package edu.cs371m.finalproject.ui
+package edu.cs371m.finalproject.ui.recipe
 
 
 import android.os.Bundle
 import android.text.method.ScrollingMovementMethod
 import android.view.MenuItem
-import edu.cs371m.finalproject.databinding.ActivityOnePostBinding
+import edu.cs371m.finalproject.databinding.ActivityOneRecipeBinding
 import androidx.appcompat.app.AppCompatActivity
 import edu.cs371m.finalproject.glide.Glide
+import edu.cs371m.finalproject.ui.MainViewModel
 
 
-
-
-
-class OnePost : AppCompatActivity()
+class Recipe : AppCompatActivity()
 {
-    private lateinit var binding : ActivityOnePostBinding
+    private lateinit var binding : ActivityOneRecipeBinding
 
 
     override fun onCreate(savedInstanceState: Bundle?)
     {
         super.onCreate(savedInstanceState)
-        binding = ActivityOnePostBinding.inflate(layoutInflater)
+        binding = ActivityOneRecipeBinding.inflate(layoutInflater)
         setContentView(binding.root)
         setSupportActionBar(binding.mytoolbar)
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
@@ -28,18 +26,12 @@ class OnePost : AppCompatActivity()
         // Get the data that was sent
         val callingBundle = activityThatCalled.extras
 
-        if(callingBundle?.getCharSequence(MainViewModel.titleKey)!!.length >30)
-        {
-            binding.title.text = callingBundle?.getCharSequence(MainViewModel.titleKey)?.subSequence(0,30).toString()+"..."
-        }
-        else {
-            binding.title.text = callingBundle?.getCharSequence(MainViewModel.titleKey).toString()
-        }
-        binding.titletv.text = callingBundle?.getCharSequence(MainViewModel.titleKey).toString()
-        binding.onepostst.text = callingBundle?.getCharSequence(MainViewModel.selftextKey)
+        binding.title.text = callingBundle?.getCharSequence(MainViewModel.mealNameKey).toString()
+        binding.titletv.text = callingBundle?.getCharSequence(MainViewModel.mealNameKey).toString()
+        binding.onepostst.text = callingBundle?.getCharSequence(MainViewModel.mealInstructionsKey)
         binding.onepostst.movementMethod = ScrollingMovementMethod()
-        val imageurl = callingBundle?.getString(MainViewModel.imageKey)
-        val thumbnailurl = callingBundle?.getString(MainViewModel.thumbnailKey)
+        val imageurl = callingBundle?.getString(MainViewModel.mealThumbLinkKey)
+        val thumbnailurl = callingBundle?.getString(MainViewModel.mealThumbLinkKey)
         if (imageurl != null && thumbnailurl != null) {
             Glide.glideFetch(imageurl, thumbnailurl, binding.onepostimage)
         }

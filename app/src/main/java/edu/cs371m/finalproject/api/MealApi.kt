@@ -18,14 +18,16 @@ import java.lang.reflect.Type
 interface MealApi {
     @GET("api/json/v1/1/categories.php")
     suspend fun getCategories() : CategoriesResponse
+
     @GET("api/json/v1/1/filter.php?c={mealCategory}")
     suspend fun getMealsByCategory(@Path("mealCategory") mealCategory: String) : MealsResponse
+
     @GET("api/json/v1/1/lookup.php?i={mealId}")
     suspend fun getMealByID(@Path("mealId") mealId: String):MealsResponse
 
 
     // I just looked at the response and "parsed" it by eye
-    data class MealsResponse(val meals: List<Meals>)
+    data class MealsResponse(val meals: List<Meal>)
     data class CategoriesResponse(val categories: List<Category>)
 
     // This class allows Retrofit to parse items in our model of type

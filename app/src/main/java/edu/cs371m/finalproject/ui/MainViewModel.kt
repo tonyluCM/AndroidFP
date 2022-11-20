@@ -11,17 +11,19 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.google.firebase.auth.FirebaseAuth
 import edu.cs371m.finalproject.api.*
+import edu.cs371m.finalproject.ui.recipe.Recipe
 
 // XXX Much to write
 class MainViewModel : ViewModel() {
-    private var displayName = MutableLiveData("Uninitialized")
-    private var email = MutableLiveData("Uninitialized")
-    private var uid = MutableLiveData("Uninitialized")
+
+    private var displayName = MutableLiveData("")
+    private var email = MutableLiveData("")
+    private var uid = MutableLiveData("")
     private var title = MutableLiveData<String>()
+
+    private var mealName = MutableLiveData<String>()
     //private var searchTerm = MutableLiveData<String>()
-    private var subreddit = MutableLiveData<String>().apply {
-        value = "aww"
-    }
+
     private var mealCategory = MutableLiveData<String>().apply{
         value = "Beef"
     }
@@ -33,34 +35,16 @@ class MainViewModel : ViewModel() {
     private val mealrepository = MealsRepository(mealapi)
 
     private val categoryList = MediatorLiveData<List<Category>>()
-    private val mealsInCategoryList = MediatorLiveData<List<Meals>>()
-    private val mealList = MediatorLiveData<List<Meals>>()
+    private val mealsInCategoryList = MediatorLiveData<List<Meal>>()
+    private val mealList = MediatorLiveData<List<Meal>>()
 
-    //old
-    private val redditpostapi = RedditApi.create()
-    private val redditrepository = RedditPostRepository(redditpostapi)
 
-    private val redditposts =MediatorLiveData<List<RedditPost>>()
-    private val subredditlist =MediatorLiveData<List<RedditPost>>()
-    private val favoritelist = MediatorLiveData<List<RedditPost>>()
+    //private val favoritelist = MediatorLiveData<List<RedditPost>>()
     init {
-        netPosts()
+        //netPosts()
+        netCategories()
     }
-    fun netPosts() = viewModelScope.launch(
-        context = viewModelScope.coroutineContext
-                + Dispatchers.IO) {
-        // Update LiveData from IO dispatcher, use postValue
-        redditposts.postValue(redditrepository.getPosts(subreddit.value.toString()))
 
-    }
-    fun netSubreddits() = viewModelScope.launch(
-        context = viewModelScope.coroutineContext
-                + Dispatchers.IO) {
-        // Update LiveData from IO dispatcher, use postValue
-        subredditlist.postValue(redditrepository.getSubreddits())
-
-    }
-    //Tao
     fun netCategories() = viewModelScope.launch(
         context = viewModelScope.coroutineContext
                 + Dispatchers.IO) {
@@ -108,6 +92,10 @@ class MainViewModel : ViewModel() {
         FirebaseAuth.getInstance().signOut()
         userLogout()
     }
+
+
+
+
 /**
     //Thanks to the filter list example
     private val searchedredditposts =MediatorLiveData<List<RedditPost>>().apply {
@@ -161,10 +149,10 @@ class MainViewModel : ViewModel() {
 **/
     // Looks pointless, but if LiveData is set up properly, it will fetch posts
     // from the network
-    fun repoFetch() {
+   /* fun repoFetch() {
         val fetch = subreddit.value
         subreddit.value = fetch
-    }
+    }*/
 
     //Tao
     fun setMealCategory(tempcategory:String)
@@ -180,17 +168,22 @@ class MainViewModel : ViewModel() {
         return categoryList
     }
     //set meal category before netting it
-    fun observeMealsInCategory(): LiveData<List<Meals>>
+    fun observeMealsInCategory(): LiveData<List<Meal>>
     {
         return mealsInCategoryList
     }
     //set meal id before netting it
-    fun observeMeal(): LiveData<List<Meals>>
+    fun observeMeal(): LiveData<List<Meal>>
     {
         return mealList
     }
 
-
+    fun observeMealName(): LiveData<String> {
+        return mealName
+    }
+    fun setMealName(newMealName: String) {
+        mealName.value = newMealName
+    }
 
 
     fun observeTitle(): LiveData<String> {
@@ -200,31 +193,27 @@ class MainViewModel : ViewModel() {
         title.value = newTitle
     }
     // The parsimonious among you will find that you can call this in exactly two places
-    fun setTitleToSubreddit() {
-        title.value = "r/${subreddit.value}"
+
+    fun setTitleToCategory(){
+        title.value =  mealCategory.value
     }
+
+  /*  fun setTitleToMeal(){
+        title.value =  mealId.value
+    }*/
+
 
     // XXX Write me, set, observe, deal with favorites
-    fun setSubredditToTitle()
-    {
-        //remove the "r/"
-        subreddit.value = title.value!!.removeRange(0,2)
-    }
-    fun observePosts(): LiveData<List<RedditPost>>
-    {
-        return redditposts
-    }
-    fun observeSubReddits(): LiveData<List<RedditPost>>
-    {
-        return subredditlist
-    }
-    fun observeFavorites(): LiveData<List<RedditPost>>
+
+
+
+    /*fun observeFavorites(): LiveData<List<RedditPost>>
     {
         return favoritelist
-    }
+    }*/
 
     //favorite ones, Thanks to the filter list example
-    fun isFavorite(redditpost: RedditPost): Boolean {
+   /* fun isFavorite(redditpost: RedditPost): Boolean {
         return favoritelist.value?.contains(redditpost) ?: false
     }
     fun addFavorite(redditpost: RedditPost) {
@@ -232,7 +221,7 @@ class MainViewModel : ViewModel() {
     }
     fun removeFavorite(redditpost: RedditPost) {
         favoritelist.value = favoritelist.value?.minus(redditpost)?: listOf(redditpost)
-    }
+    }*/
     /**
     //searching ones
     fun observeSearchedRedditPosts(): LiveData<List<RedditPost>>
@@ -252,18 +241,25 @@ class MainViewModel : ViewModel() {
 **/
     // Convenient place to put it as it is shared
     companion object {
-        const val titleKey = "titleKey"
-        const val selftextKey = "selftextKey"
-        const val imageKey = "imageKey"
-        const val thumbnailKey = "thumbnailKey"
+        const val mealIdKey = "mealIdKey"
+        const val mealNameKey = "mealNameKey"
+        const val mealImgKey = "mealImgKey"
+        const val mealCategoryKey = "mealCategoryKey"
+        const val mealInstructionsKey = "mealInstructionsKey"
+        const val mealYoutubeLinkKey = "mealYoutubeLinkKey"
+        const val mealThumbLinkKey = "mealThumbLinkKey"
 
-        fun doOnePost(context: Context, redditPost: RedditPost) {
-            val onePostIntent = Intent(context,OnePost::class.java)
-            onePostIntent.putExtra(titleKey,redditPost.title)
-            onePostIntent.putExtra(selftextKey,redditPost.selfText)
-            onePostIntent.putExtra(imageKey,redditPost.imageURL)
-            onePostIntent.putExtra(thumbnailKey,redditPost.thumbnailURL)
-            context.startActivity(onePostIntent)
+        fun doOneMealRecipe(context: Context, meal: Meal) {
+            val oneMealRecipeIntent = Intent(context, Recipe::class.java)
+            oneMealRecipeIntent.putExtra(mealIdKey,meal.idMeal)
+            oneMealRecipeIntent.putExtra(mealNameKey,meal.strMeal)
+            oneMealRecipeIntent.putExtra(mealImgKey,meal.strMealThumb)
+            oneMealRecipeIntent.putExtra(mealCategoryKey,meal.strCategory)
+            oneMealRecipeIntent.putExtra(mealInstructionsKey,meal.strInstructions)
+            oneMealRecipeIntent.putExtra(mealYoutubeLinkKey,meal.strYoutube)
+            oneMealRecipeIntent.putExtra(mealYoutubeLinkKey,meal.strMealThumb)
+
+            context.startActivity(oneMealRecipeIntent)
         }
     }
 }

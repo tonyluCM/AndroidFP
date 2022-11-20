@@ -16,6 +16,7 @@ import edu.cs371m.finalproject.R
 import edu.cs371m.finalproject.databinding.FragmentRvBinding
 import edu.cs371m.finalproject.databinding.InitialpageBinding
 import edu.cs371m.finalproject.ui.AuthInit
+import edu.cs371m.finalproject.ui.categories.Categories
 
 class InitialPage: Fragment() {
     // XXX initialize viewModel
@@ -52,22 +53,20 @@ class InitialPage: Fragment() {
         binding.SignIn.setOnClickListener {
             AuthInit(viewModel,signInLauncher)
             parentFragmentManager.commit {
-                replace(R.id.main_frame,HomeFragment.newInstance())
+                replace(R.id.main_frame, Categories.newInstance())
                 setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE)
             }
         }
 
         binding.GuestIn.setOnClickListener {
             parentFragmentManager.commit {
-                replace(R.id.main_frame,HomeFragment.newInstance())
+                replace(R.id.main_frame,Categories.newInstance())
                 setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE)
             }
         }
         binding.LogOut.setOnClickListener {
             viewModel.signOut()
         }
-
-
 
     }
 }

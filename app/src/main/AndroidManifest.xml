@@ -23,7 +23,7 @@
             </intent-filter>
         </activity>
 
-        <activity
+      <!--  <activity
             android:name=".ui.OnePost"
             android:parentActivityName=".MainActivity"
             />
@@ -34,6 +34,22 @@
             android:name=".ui.subreddits.Subreddits"
             android:parentActivityName=".MainActivity"
             />
+-->
+
+        <activity
+            android:name=".ui.recipe.Recipe"
+            android:parentActivityName=".MainActivity"
+            />
+
+        <activity
+            android:name=".ui.categories.Categories"
+            android:parentActivityName=".MainActivity"
+            />
+        <activity
+            android:name=".ui.meals.Meals"
+            android:parentActivityName=".MainActivity"
+            />
+
     </application>
 
 </manifest>
