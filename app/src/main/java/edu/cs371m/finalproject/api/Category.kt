@@ -7,13 +7,13 @@ import android.text.style.ForegroundColorSpan
 import com.google.gson.annotations.SerializedName
 
 data class Category (
-    @SerializedName("id")
+    @SerializedName("idCategory")
     val idCategory: String,
-    @SerializedName("name")
+    @SerializedName("strCategory")
     val strCategory: SpannableString,
-    @SerializedName("thumbnail")
+    @SerializedName("strCategoryThumb")
     val strCategoryThumb: String,
-    @SerializedName("public_description")
+    @SerializedName("strCategoryDescription")
     val strCategoryDescription: SpannableString?
 ){
     companion object {

@@ -14,6 +14,7 @@ import edu.cs371m.finalproject.databinding.RowCategoryBinding
 import edu.cs371m.finalproject.glide.Glide
 import edu.cs371m.finalproject.ui.MainViewModel
 import edu.cs371m.finalproject.ui.meals.Meals
+import android.util.Log
 
 // NB: Could probably unify with PostRowAdapter if we had two
 // different VH and override getItemViewType
@@ -29,7 +30,7 @@ class CategoryListAdapter(private val viewModel: MainViewModel,
         init {
             //XXX Write me.
             rowcategoryBinding.root.setOnClickListener{
-                val clickedCategory = getItem(adapterPosition).strCategory?.toString()
+                val clickedCategory = getItem(adapterPosition).strCategory.toString()
 
                 //exit current fragment
                 fragmentActivity.supportFragmentManager.popBackStack()
@@ -66,7 +67,9 @@ class CategoryListAdapter(private val viewModel: MainViewModel,
     override fun onBindViewHolder(holder: VH, position: Int) {
         val item = getItem(position)
         val rowbinding = holder.rowcategoryBinding
-        rowbinding.categoryDescriptionTV.text=item.strCategoryDescription
+
+        rowbinding.categoryDescriptionTV.text = item.strCategoryDescription
+
         Glide.glideFetch(item.strCategoryThumb,item.strCategoryThumb,rowbinding.categoryThumbIV)
         rowbinding.categoryNameTV.text=item.strCategory
 

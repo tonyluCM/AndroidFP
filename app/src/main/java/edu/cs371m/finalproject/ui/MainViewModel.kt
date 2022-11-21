@@ -149,10 +149,10 @@ class MainViewModel : ViewModel() {
 **/
     // Looks pointless, but if LiveData is set up properly, it will fetch posts
     // from the network
-   /* fun repoFetch() {
-        val fetch = subreddit.value
-        subreddit.value = fetch
-    }*/
+   //fun repoFetch() {
+     //   val fetch = subreddit.value
+     //   subreddit.value = fetch
+    //}
 
     //Tao
     fun setMealCategory(tempcategory:String)

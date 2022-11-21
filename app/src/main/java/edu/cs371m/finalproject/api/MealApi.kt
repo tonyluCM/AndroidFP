@@ -5,6 +5,7 @@ import com.google.gson.GsonBuilder
 import com.google.gson.JsonDeserializationContext
 import com.google.gson.JsonDeserializer
 import com.google.gson.JsonElement
+import edu.cs371m.finalproject.ui.categories.Categories
 import okhttp3.HttpUrl
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
@@ -19,14 +20,15 @@ interface MealApi {
     @GET("api/json/v1/1/categories.php")
     suspend fun getCategories() : CategoriesResponse
 
-    @GET("api/json/v1/1/filter.php?c={mealCategory}")
-    suspend fun getMealsByCategory(@Path("mealCategory") mealCategory: String) : MealsResponse
+    @GET("api/json/v1/1/filter.php?")
+    suspend fun getMealsByCategory(@Query("c") mealCategory: String) : MealsResponse
 
-    @GET("api/json/v1/1/lookup.php?i={mealId}")
-    suspend fun getMealByID(@Path("mealId") mealId: String):MealsResponse
+    @GET("api/json/v1/1/lookup.php?")
+    suspend fun getMealByID(@Query("i") mealId: String):MealsResponse
 
 
     // I just looked at the response and "parsed" it by eye
+
     data class MealsResponse(val meals: List<Meal>)
     data class CategoriesResponse(val categories: List<Category>)
 
