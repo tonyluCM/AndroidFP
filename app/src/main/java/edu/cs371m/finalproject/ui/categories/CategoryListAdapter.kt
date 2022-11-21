@@ -43,12 +43,12 @@ class CategoryListAdapter(private val viewModel: MainViewModel,
                 //repo-fetch similar
                // viewModel.setSubredditToTitle()
                // viewModel.setTitleToSubreddit()
-                if (clickedCategory != null) {
+
                     viewModel.setTitle(clickedCategory)
                     viewModel.setMealCategory(clickedCategory)
                     viewModel.setTitleToCategory()
                     viewModel.netMealsInCategory()
-                }
+
 
 
             }
