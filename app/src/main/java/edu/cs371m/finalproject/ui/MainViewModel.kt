@@ -39,7 +39,7 @@ class MainViewModel : ViewModel() {
     private val mealList = MediatorLiveData<List<Meal>>()
 
 
-    //private val favoritelist = MediatorLiveData<List<RedditPost>>()
+    private val favoritelist = MediatorLiveData<List<Meal>>()
     init {
         //netPosts()
         netCategories()
@@ -207,21 +207,21 @@ class MainViewModel : ViewModel() {
 
 
 
-    /*fun observeFavorites(): LiveData<List<RedditPost>>
+    fun observeFavorites(): LiveData<List<Meal>>
     {
         return favoritelist
-    }*/
+    }
 
     //favorite ones, Thanks to the filter list example
-   /* fun isFavorite(redditpost: RedditPost): Boolean {
-        return favoritelist.value?.contains(redditpost) ?: false
+    fun isFavorite(meal: Meal): Boolean {
+        return favoritelist.value?.contains(meal) ?: false
     }
-    fun addFavorite(redditpost: RedditPost) {
-        favoritelist.value = favoritelist.value?.plus(redditpost)?: listOf(redditpost)
+    fun addFavorite(meal: Meal) {
+        favoritelist.value = favoritelist.value?.plus(meal)?: listOf(meal)
     }
-    fun removeFavorite(redditpost: RedditPost) {
-        favoritelist.value = favoritelist.value?.minus(redditpost)?: listOf(redditpost)
-    }*/
+    fun removeFavorite(meal: Meal) {
+        favoritelist.value = favoritelist.value?.minus(meal)?: listOf(meal)
+    }
     /**
     //searching ones
     fun observeSearchedRedditPosts(): LiveData<List<RedditPost>>

@@ -11,10 +11,12 @@ import androidx.core.view.MenuProvider
 import androidx.fragment.app.FragmentTransaction
 import androidx.fragment.app.commit
 import androidx.lifecycle.ViewTreeLifecycleOwner
+import com.firebase.ui.auth.FirebaseAuthUIActivityResultContract
 import edu.cs371m.finalproject.databinding.ActionBarBinding
 import edu.cs371m.finalproject.databinding.ActivityMainBinding
 import edu.cs371m.finalproject.ui.*
 import edu.cs371m.finalproject.ui.categories.Categories
+import edu.cs371m.finalproject.ui.meals.favorites
 
 
 class MainActivity : AppCompatActivity() {
@@ -25,16 +27,18 @@ class MainActivity : AppCompatActivity() {
        // lateinit var subreddit1: String
        // private const val mainFragTag = "mainFragTag"
         private const val initialPageTag = "initialPageTag"
-       // private const val favoritesFragTag = "favoritesFragTag"
+        private const val favoritesFragTag = "favoritesFragTag"
        // private const val subredditsFragTag = "subredditsFragTag"
 
         private const val categoriesFragTag = "categoriesFragTag"
 
-
     }
     private var actionBarBinding: ActionBarBinding? = null
     private val viewModel: MainViewModel by viewModels()
-
+    private val signInLauncher =
+        registerForActivityResult(FirebaseAuthUIActivityResultContract()) {
+            viewModel.updateUser()
+        }
 
 
     // https://stackoverflow.com/questions/24838155/set-onclick-listener-on-action-bar-title-in-android/29823008#29823008
@@ -51,7 +55,7 @@ class MainActivity : AppCompatActivity() {
         // XXX Write me actionBarBinding
 
         actionBarBinding?.actionTitle?.setOnClickListener {
-            if(supportFragmentManager.backStackEntryCount==0) {
+            if(viewModel.observeTitle().value !="Categories" &&viewModel.observeTitle().value !="Yummy Dallas"&&viewModel.observeTitle().value != "Favorites") {
                 supportFragmentManager.commit {
                     replace(R.id.main_frame, Categories.newInstance(), categoriesFragTag)
                     // TRANSIT_FRAGMENT_FADE calls for the Fragment to fade away
@@ -62,19 +66,19 @@ class MainActivity : AppCompatActivity() {
         }
 
     }
-   /* fun actionBarLaunchFavorites() {
+    fun actionBarLaunchFavorites() {
         // XXX Write me actionBarBinding
                 actionBarBinding!!.actionFavorite.setOnClickListener {
-                    if(viewModel.observeTitle().value != "Pick"&&viewModel.observeTitle().value != "Favorites") {
+                    if(viewModel.observeTitle().value != "Favorites") {
                         supportFragmentManager.commit {
-                            replace(R.id.main_frame, Favorites.newInstance(), favoritesFragTag)
+                            replace(R.id.main_frame, favorites.newInstance(), favoritesFragTag)
                             setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE)
                         }
                     }
                 }
 
 
-    }*/
+    }
 
     /**
     // XXX check out addTextChangedListener
@@ -113,6 +117,7 @@ class MainActivity : AppCompatActivity() {
 
 
     }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         val activityMainBinding = ActivityMainBinding.inflate(layoutInflater)
@@ -132,18 +137,28 @@ class MainActivity : AppCompatActivity() {
             override fun onMenuItemSelected(menuItem: MenuItem): Boolean {
                 // Handle action bar item clicks here.
                 return when (menuItem.itemId) {
+                    R.id.action_signin ->{
+                        AuthInit(viewModel, signInLauncher)
+                        return true
+                    }
+                    R.id.action_logout ->{
+                        viewModel.signOut()
+                        return true
+                    }
                     android.R.id.home -> false // Handle in fragment
                     else -> true
                 }
             }
+
         })
+
 
         addInitialPage()
        // initDebug()
         initTitleObservers()
        // actionBarTitleLaunchSubreddit()
         actionBarTitleLaunchCategories()
-     //   actionBarLaunchFavorites()
+        actionBarLaunchFavorites()
         //actionBarSearch()
         //viewModel.setTitleToSubreddit()
         //AuthInit(viewModel, signInLauncher)

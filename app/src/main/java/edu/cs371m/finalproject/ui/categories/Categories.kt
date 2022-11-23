@@ -2,13 +2,17 @@ package edu.cs371m.finalproject.ui.categories
 
 import android.os.Bundle
 import android.view.LayoutInflater
+import android.view.MenuItem
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
+import com.firebase.ui.auth.FirebaseAuthUIActivityResultContract
+import edu.cs371m.finalproject.R
 import edu.cs371m.finalproject.databinding.FragmentRvBinding
+import edu.cs371m.finalproject.ui.AuthInit
 import edu.cs371m.finalproject.ui.MainViewModel
 
 class Categories : Fragment() {
@@ -18,7 +22,6 @@ class Categories : Fragment() {
     // This property is only valid between onCreateView and onDestroyView.
     private val binding get() = _binding!!
     private lateinit var adapter: CategoryListAdapter
-
     companion object {
         fun newInstance(): Categories {
             return Categories()
@@ -39,7 +42,6 @@ class Categories : Fragment() {
             swipe.isRefreshing=false
         }
     }
-
 
     override fun onCreateView(
         inflater: LayoutInflater,

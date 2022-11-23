@@ -2,6 +2,7 @@ package edu.cs371m.finalproject.ui.meals
 
 import android.os.Bundle
 import android.view.LayoutInflater
+import android.view.MenuItem
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
@@ -31,7 +32,11 @@ class Meals : Fragment() {
         recyclerView.layoutManager = LinearLayoutManager(recyclerView.context)
         return adapter
     }
-
+    private fun notifyWhenFragmentForegrounded(meallistadapter: MealListAdapter) {
+        // When we return to our fragment, notifyDataSetChanged
+        // to pick up modifications to the favorites list.  Maybe do more.
+        meallistadapter.notifyDataSetChanged()
+    }
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -50,11 +55,13 @@ class Meals : Fragment() {
             binding.swipeRefreshLayout.isRefreshing=false
         }
        // viewModel.setTitle("Pick")
+
         viewModel.observeMealsInCategory().observe(viewLifecycleOwner)
         {
             adapter.submitList(it)
             adapter.notifyDataSetChanged()
         }
+        notifyWhenFragmentForegrounded(adapter)
         /**
         viewModel.observeSearchedSubRedditList().observe(viewLifecycleOwner)
         {
