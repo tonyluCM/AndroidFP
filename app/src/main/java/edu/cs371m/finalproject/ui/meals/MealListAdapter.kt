@@ -22,10 +22,14 @@ class MealListAdapter(private val viewModel: MainViewModel,
                       private val fragmentActivity: FragmentActivity )
     : ListAdapter<Meal, MealListAdapter.VH>(MealDiff()) {
 
+    companion object {
+        var itemCount = 0
+    }
     // ViewHolder pattern
     inner class VH(val rowMealBinding: RowMealsBinding)
         : RecyclerView.ViewHolder(rowMealBinding.root)
     {
+
         init {
             //XXX Write me.
             rowMealBinding.root.setOnClickListener{
@@ -39,7 +43,23 @@ class MealListAdapter(private val viewModel: MainViewModel,
                 }
                 else
                 {
-                    Toast.makeText(it.context,"Please sign in to view the recipe~",Toast.LENGTH_SHORT).show()
+                    ++MealListAdapter.itemCount
+                    if(MealListAdapter.itemCount<=2)
+                    {
+                        MainViewModel.doOneMealRecipe(it.context, getItem(adapterPosition))
+                        val clickedMealName = getItem(adapterPosition).strMeal.toString()
+                        val clickedMealId = getItem(adapterPosition).idMeal.toString()
+                        viewModel.setTitle(clickedMealName)
+                        viewModel.setMealId(clickedMealId)
+                        viewModel.netMeal()
+                    }
+                    else {
+                        Toast.makeText(
+                            it.context,
+                            "Please sign in to view more recipes~",
+                            Toast.LENGTH_SHORT
+                        ).show()
+                    }
                 }
                 //repo-fetch similar
               /*  viewModel.setSubredditToTitle()

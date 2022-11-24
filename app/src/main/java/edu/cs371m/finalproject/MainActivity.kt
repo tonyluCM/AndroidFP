@@ -17,6 +17,7 @@ import edu.cs371m.finalproject.databinding.ActivityMainBinding
 import edu.cs371m.finalproject.ui.*
 import edu.cs371m.finalproject.ui.categories.Categories
 import edu.cs371m.finalproject.ui.meals.favorites
+import com.google.firebase.auth.FirebaseAuth
 
 
 class MainActivity : AppCompatActivity() {
@@ -147,6 +148,21 @@ class MainActivity : AppCompatActivity() {
                     }
                     android.R.id.home -> false // Handle in fragment
                     else -> true
+                }
+            }
+
+            override fun onPrepareMenu(menu: Menu) {
+                var signin = menu.findItem(R.id.action_signin)
+                var signout = menu.findItem(R.id.action_logout)
+                if(FirebaseAuth.getInstance().currentUser!=null)
+                {
+                    signin.setVisible(false)
+                    signout.setVisible(true)
+                }
+                else
+                {
+                    signin.setVisible(true)
+                    signout.setVisible(false)
                 }
             }
 
