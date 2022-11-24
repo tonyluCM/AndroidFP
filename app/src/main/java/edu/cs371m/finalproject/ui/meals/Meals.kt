@@ -5,9 +5,12 @@ import android.view.LayoutInflater
 import android.view.MenuItem
 import android.view.View
 import android.view.ViewGroup
+import android.widget.EditText
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.recyclerview.widget.LinearLayoutManager
+import edu.cs371m.finalproject.MainActivity
+import edu.cs371m.finalproject.R
 import edu.cs371m.finalproject.databinding.FragmentRvBinding
 import edu.cs371m.finalproject.ui.MainViewModel
 
@@ -55,20 +58,19 @@ class Meals : Fragment() {
             binding.swipeRefreshLayout.isRefreshing=false
         }
        // viewModel.setTitle("Pick")
-
+        var temp = (requireActivity() as MainActivity).findViewById<EditText>(R.id.actionSearch)
+        temp.visibility = View.VISIBLE
         viewModel.observeMealsInCategory().observe(viewLifecycleOwner)
         {
             adapter.submitList(it)
             adapter.notifyDataSetChanged()
         }
-        notifyWhenFragmentForegrounded(adapter)
-        /**
-        viewModel.observeSearchedSubRedditList().observe(viewLifecycleOwner)
-        {
+        viewModel.observeSearchedMealInCategoryList().observe(viewLifecycleOwner){
             adapter.submitList(it)
             adapter.notifyDataSetChanged()
         }
-        **/
+        notifyWhenFragmentForegrounded(adapter)
+
 
     }
 

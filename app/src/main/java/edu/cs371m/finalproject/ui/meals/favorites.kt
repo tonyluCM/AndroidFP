@@ -3,6 +3,7 @@ package edu.cs371m.finalproject.ui.meals
 import android.os.Bundle
 import android.util.Log
 import android.view.*
+import android.widget.EditText
 import androidx.core.view.MenuHost
 import androidx.core.view.MenuProvider
 import androidx.fragment.app.Fragment
@@ -64,7 +65,14 @@ class favorites : Fragment(){
             binding.swipeRefreshLayout.isRefreshing=false
         }
         viewModel.setTitle("Favorites")
+        var temp = (requireActivity() as MainActivity).findViewById<EditText>(R.id.actionSearch)
+        temp.visibility = View.VISIBLE
         viewModel.observeFavorites().observe(viewLifecycleOwner)
+        {
+            adapter.submitList(it)
+            adapter.notifyDataSetChanged()
+        }
+        viewModel.observeSearchedFavoriteList().observe(viewLifecycleOwner)
         {
             adapter.submitList(it)
             adapter.notifyDataSetChanged()

@@ -1,6 +1,8 @@
 package edu.cs371m.finalproject
 
 import android.os.Bundle
+import android.text.TextWatcher
+import android.view.inputmethod.InputMethodManager
 import android.view.Menu
 import android.view.MenuInflater
 import android.view.MenuItem
@@ -18,7 +20,7 @@ import edu.cs371m.finalproject.ui.*
 import edu.cs371m.finalproject.ui.categories.Categories
 import edu.cs371m.finalproject.ui.meals.favorites
 import com.google.firebase.auth.FirebaseAuth
-
+import android.text.Editable
 
 class MainActivity : AppCompatActivity() {
     // This allows us to do better testing
@@ -40,7 +42,10 @@ class MainActivity : AppCompatActivity() {
         registerForActivityResult(FirebaseAuthUIActivityResultContract()) {
             viewModel.updateUser()
         }
-
+    fun hideKeyboard() {
+        val imm = getSystemService(INPUT_METHOD_SERVICE) as InputMethodManager
+        imm.hideSoftInputFromWindow(window.decorView.rootView.windowToken, 0)
+    }
 
     // https://stackoverflow.com/questions/24838155/set-onclick-listener-on-action-bar-title-in-android/29823008#29823008
     private fun initActionBar(actionBar: ActionBar) {
@@ -81,7 +86,7 @@ class MainActivity : AppCompatActivity() {
 
     }
 
-    /**
+
     // XXX check out addTextChangedListener
     private fun actionBarSearch() {
         // XXX Write me
@@ -100,7 +105,7 @@ class MainActivity : AppCompatActivity() {
             }
         })
     }
-**/
+
     private fun addInitialPage(){
         supportFragmentManager.commit {
             add(R.id.main_frame, InitialPage.newInstance(), initialPageTag)
@@ -175,7 +180,7 @@ class MainActivity : AppCompatActivity() {
        // actionBarTitleLaunchSubreddit()
         actionBarTitleLaunchCategories()
         actionBarLaunchFavorites()
-        //actionBarSearch()
+        actionBarSearch()
         //viewModel.setTitleToSubreddit()
         //AuthInit(viewModel, signInLauncher)
 

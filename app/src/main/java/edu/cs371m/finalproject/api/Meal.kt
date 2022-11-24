@@ -4,6 +4,7 @@ import android.graphics.Color
 import android.text.Spannable
 import android.text.SpannableString
 import android.text.style.ForegroundColorSpan
+import androidx.core.text.clearSpans
 import com.google.gson.annotations.SerializedName
 
 data class Meal (
@@ -141,7 +142,35 @@ data class Meal (
 
         }
     }
+    private fun clearSpan(str: SpannableString?) {
+        str?.clearSpans()
+        str?.setSpan(
+            ForegroundColorSpan(Color.GRAY), 0, 0,
+            Spannable.SPAN_EXCLUSIVE_EXCLUSIVE
+        )
+    }
+    // clearSpans does not invalidate the textview
+    // We have to assign a span to make sure text gets redrawn, so assign
+    // a span that does nothing
+    private fun removeAllCurrentSpans(){
+        // Erase all spans
+        clearSpan(strMeal)
+    }
 
+    // Given a search string, look for it in the RedditPost.  If found,
+    // highlight it and return true, otherwise return false.
+    fun searchFor(searchTerm: String): Boolean {
+        // XXX Write me, search both regular posts and subreddit listings
+        removeAllCurrentSpans()
+        if(searchTerm=="")
+        {
+            removeAllCurrentSpans()
+            return true
+        }
+        var result = findAndSetSpan(strMeal,searchTerm)
+        return result
+
+    }
     override fun equals(other: Any?) : Boolean =
         if (other is Meal) {
             idMeal == other.idMeal

@@ -20,7 +20,7 @@ class MainViewModel : ViewModel() {
     private var email = MutableLiveData("")
     private var uid = MutableLiveData("")
     private var title = MutableLiveData<String>()
-
+    private var searchTerm = MutableLiveData<String>()
     private var mealName = MutableLiveData<String>()
     //private var searchTerm = MutableLiveData<String>()
 
@@ -96,26 +96,22 @@ class MainViewModel : ViewModel() {
 
 
 
-/**
+
     //Thanks to the filter list example
-    private val searchedredditposts =MediatorLiveData<List<RedditPost>>().apply {
-        addSource(searchTerm)    { value = filterPosts()}
-        addSource(redditposts)    { value = filterPosts()}
-        value=redditposts.value
+    private val searchedmealincategorylist =MediatorLiveData<List<Meal>>().apply {
+        addSource(searchTerm)    { value = filterMealInCategoryList()}
+        addSource(mealsInCategoryList)    { value = filterMealInCategoryList()}
+        value=mealsInCategoryList.value
     }
-    private val searchedsubredditlist =MediatorLiveData<List<RedditPost>>().apply {
-        addSource(searchTerm)    { value = filterSubRedditList()}
-        addSource(subredditlist)    { value = filterSubRedditList()}
-        value = subredditlist.value
-    }
-    private val searchedfavoritelist = MediatorLiveData<List<RedditPost>>().apply {
+
+    private val searchedfavoritelist = MediatorLiveData<List<Meal>>().apply {
         addSource(searchTerm)    { value = filterFavoriteList()}
         addSource(favoritelist)    { value = filterFavoriteList()}
         value=favoritelist.value
     }
 
-    private fun filterPosts(): List<RedditPost>? {
-        var value = redditposts.value
+    private fun filterMealInCategoryList(): List<Meal>? {
+        var value = mealsInCategoryList.value
         var searchValue = searchTerm.value
         if(searchValue.isNullOrEmpty()) return value?.filter{
             it.searchFor("")
@@ -125,18 +121,8 @@ class MainViewModel : ViewModel() {
         }
     }
 
-    private fun filterSubRedditList(): List<RedditPost>? {
-        var value = subredditlist.value
-        var searchValue = searchTerm.value
-        if(searchValue.isNullOrEmpty()) return value?.filter{
-            it.searchFor("")
-        }
-        return value?.filter{
-            it.searchFor(searchValue)
-        }
-    }
 
-    private fun filterFavoriteList(): List<RedditPost>? {
+    private fun filterFavoriteList(): List<Meal>? {
         var value = favoritelist.value
         var searchValue = searchTerm.value
         if(searchValue.isNullOrEmpty()) return value?.filter{
@@ -146,7 +132,7 @@ class MainViewModel : ViewModel() {
             it.searchFor(searchValue)
         }
     }
-**/
+
     // Looks pointless, but if LiveData is set up properly, it will fetch posts
     // from the network
    //fun repoFetch() {
@@ -222,23 +208,21 @@ class MainViewModel : ViewModel() {
     fun removeFavorite(meal: Meal) {
         favoritelist.value = favoritelist.value?.minus(meal)?: listOf(meal)
     }
-    /**
+
     //searching ones
-    fun observeSearchedRedditPosts(): LiveData<List<RedditPost>>
+    fun observeSearchedMealInCategoryList(): LiveData<List<Meal>>
     {
-        return searchedredditposts
+        return searchedmealincategorylist
     }
-    fun observeSearchedSubRedditList(): LiveData<List<RedditPost>> {
-        return searchedsubredditlist
-    }
-    fun observeSearchedFavoriteList(): LiveData<List<RedditPost>>
+
+    fun observeSearchedFavoriteList(): LiveData<List<Meal>>
     {
         return searchedfavoritelist
     }
     fun setSearchTerm(s: String) {
         searchTerm.value = s
     }
-**/
+
     // Convenient place to put it as it is shared
     companion object {
         const val mealIdKey = "mealIdKey"

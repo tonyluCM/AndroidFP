@@ -5,11 +5,13 @@ import android.view.LayoutInflater
 import android.view.MenuItem
 import android.view.View
 import android.view.ViewGroup
+import android.widget.EditText
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 import com.firebase.ui.auth.FirebaseAuthUIActivityResultContract
+import edu.cs371m.finalproject.MainActivity
 import edu.cs371m.finalproject.R
 import edu.cs371m.finalproject.databinding.FragmentRvBinding
 import edu.cs371m.finalproject.ui.AuthInit
@@ -61,6 +63,8 @@ class Categories : Fragment() {
             binding.swipeRefreshLayout.isRefreshing=false
         }
         viewModel.setTitle("Categories")
+        var temp = (requireActivity() as MainActivity).findViewById<EditText>(R.id.actionSearch)
+        temp.visibility = View.INVISIBLE
         viewModel.observeCategory().observe(viewLifecycleOwner)
         {
             adapter.submitList(it)
