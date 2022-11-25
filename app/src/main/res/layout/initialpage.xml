@@ -4,24 +4,24 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:accessibilityLiveRegion="none"
-    android:background="#C7CBE4">
+    android:background="@drawable/background_img">
 
     <Button
         android:id="@+id/SignIn"
         style="@style/Widget.MaterialComponents.Button.Icon"
         android:layout_width="0dp"
-        android:layout_marginTop="250dp"
         android:layout_height="wrap_content"
+        android:layout_marginTop="250dp"
         android:gravity="center"
         android:text="Member"
-        app:layout_constraintVertical_chainStyle="spread_inside"
-        app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintVertical_bias="0.5"
         app:layout_constraintBottom_toTopOf="@+id/GuestIn"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintHorizontal_chainStyle="spread"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.5"
+        app:layout_constraintVertical_chainStyle="spread_inside"
         app:layout_constraintWidth_percent=".60" />
 
     <Button
@@ -36,7 +36,7 @@
         app:layout_constraintTop_toBottomOf="@+id/SignIn"
         app:layout_constraintWidth_percent=".60" />
 
-    <Button
+    <!-- <Button
         android:id="@+id/LogOut"
         style="@style/Widget.MaterialComponents.Button.Icon"
         android:layout_width="0dp"
@@ -46,5 +46,5 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/GuestIn"
-        app:layout_constraintWidth_percent=".60" />
+        app:layout_constraintWidth_percent=".60" />-->
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -10,14 +10,14 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentTransaction
 import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.commit
-import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
+import com.bumptech.glide.Glide
+
 import com.firebase.ui.auth.FirebaseAuthUIActivityResultContract
 import edu.cs371m.finalproject.MainActivity
 import edu.cs371m.finalproject.R
-import edu.cs371m.finalproject.databinding.FragmentRvBinding
+
 import edu.cs371m.finalproject.databinding.InitialpageBinding
-import edu.cs371m.finalproject.ui.AuthInit
+
 import edu.cs371m.finalproject.ui.categories.Categories
 
 class InitialPage: Fragment() {
@@ -45,6 +45,8 @@ class InitialPage: Fragment() {
         savedInstanceState: Bundle?
     ): View {
         _binding = InitialpageBinding.inflate(inflater, container, false)
+
+
         return binding.root
     }
 
@@ -68,9 +70,9 @@ class InitialPage: Fragment() {
                 setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE)
             }
         }
-        binding.LogOut.setOnClickListener {
+       /* binding.LogOut.setOnClickListener {
             viewModel.signOut()
-        }
+        }*/
 
     }
 }
