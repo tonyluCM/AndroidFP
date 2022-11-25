@@ -1,26 +1,28 @@
 package edu.cs371m.finalproject
 
 import android.os.Bundle
+import android.text.Editable
 import android.text.TextWatcher
-import android.view.inputmethod.InputMethodManager
 import android.view.Menu
 import android.view.MenuInflater
 import android.view.MenuItem
+import android.view.inputmethod.InputMethodManager
 import androidx.activity.viewModels
 import androidx.appcompat.app.ActionBar
 import androidx.appcompat.app.AppCompatActivity
+import androidx.appcompat.app.AppCompatDelegate
 import androidx.core.view.MenuProvider
 import androidx.fragment.app.FragmentTransaction
 import androidx.fragment.app.commit
 import androidx.lifecycle.ViewTreeLifecycleOwner
 import com.firebase.ui.auth.FirebaseAuthUIActivityResultContract
+import com.google.firebase.auth.FirebaseAuth
 import edu.cs371m.finalproject.databinding.ActionBarBinding
 import edu.cs371m.finalproject.databinding.ActivityMainBinding
 import edu.cs371m.finalproject.ui.*
 import edu.cs371m.finalproject.ui.categories.Categories
 import edu.cs371m.finalproject.ui.meals.favorites
-import com.google.firebase.auth.FirebaseAuth
-import android.text.Editable
+
 
 class MainActivity : AppCompatActivity() {
     // This allows us to do better testing
@@ -138,6 +140,7 @@ class MainActivity : AppCompatActivity() {
             override fun onCreateMenu(menu: Menu, menuInflater: MenuInflater) {
                 // Inflate the menu; this adds items to the action bar if it is present.
                 menuInflater.inflate(R.menu.menu_main, menu)
+
             }
 
             override fun onMenuItemSelected(menuItem: MenuItem): Boolean {

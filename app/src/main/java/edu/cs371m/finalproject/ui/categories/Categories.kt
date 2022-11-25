@@ -8,6 +8,7 @@ import android.view.ViewGroup
 import android.widget.EditText
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
+import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 import com.firebase.ui.auth.FirebaseAuthUIActivityResultContract
@@ -34,7 +35,7 @@ class Categories : Fragment() {
         val recyclerView = binding.recyclerView
         adapter = CategoryListAdapter(viewModel,this.requireActivity())
         recyclerView.adapter = adapter
-        recyclerView.layoutManager = LinearLayoutManager(recyclerView.context)
+        recyclerView.layoutManager = GridLayoutManager(recyclerView.context,2)
         return adapter
     }
 

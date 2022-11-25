@@ -68,8 +68,6 @@ class CategoryListAdapter(private val viewModel: MainViewModel,
         val item = getItem(position)
         val rowbinding = holder.rowcategoryBinding
 
-        rowbinding.categoryDescriptionTV.text = item.strCategoryDescription
-
         Glide.glideFetch(item.strCategoryThumb,item.strCategoryThumb,rowbinding.categoryThumbIV)
         rowbinding.categoryNameTV.text=item.strCategory
 
