@@ -1,5 +1,7 @@
 package edu.cs371m.finalproject.ui.categories
 
+import android.text.method.ArrowKeyMovementMethod
+import android.text.method.ScrollingMovementMethod
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.fragment.app.FragmentActivity
@@ -15,6 +17,9 @@ import edu.cs371m.finalproject.glide.Glide
 import edu.cs371m.finalproject.ui.MainViewModel
 import edu.cs371m.finalproject.ui.meals.Meals
 import android.util.Log
+import android.view.View
+import android.widget.TextView
+import androidx.core.view.isVisible
 
 // NB: Could probably unify with PostRowAdapter if we had two
 // different VH and override getItemViewType
@@ -48,10 +53,8 @@ class CategoryListAdapter(private val viewModel: MainViewModel,
                     viewModel.setMealCategory(clickedCategory)
                     viewModel.setTitleToCategory()
                     viewModel.netMealsInCategory()
-
-
-
             }
+
 
         }
         }
@@ -71,11 +74,17 @@ class CategoryListAdapter(private val viewModel: MainViewModel,
         Glide.glideFetch(item.strCategoryThumb,item.strCategoryThumb,rowbinding.categoryThumbIV)
         rowbinding.categoryNameTV.text=item.strCategory
         rowbinding.categoryDescTV.text=item.strCategoryDescription
+        rowbinding.categoryDescTV.movementMethod = ScrollingMovementMethod()
+
+
+
         //categoryThumbIV subRowPic
         //categoryDescriptionTV subRowDetails
         //categoryNameTV subRowHeading
         // NB: This one-liner will exit the current fragment
         //fragmentActivity.supportFragmentManager.popBackStack()
+
+
     }
 
 
