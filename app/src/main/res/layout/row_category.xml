@@ -1,36 +1,4 @@
 <?xml version="1.0" encoding="utf-8"?>
-<!--
-<androidx.cardview.widget.CardView
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:focusable="true"
-    android:clickable="true"
-    android:layout_margin="8dp"
-    android:background="?android:attr/selectableItemBackground">
-    <LinearLayout
-        android:orientation="vertical"
-        android:layout_width="match_parent"
-        android:background="#C7CBE4"
-        android:layout_height="wrap_content">
-        <ImageView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center_vertical|start"
-            android:id="@+id/categoryThumbIV"
-            />
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center_vertical"
-            android:textSize="16sp"
-            android:gravity="clip_horizontal"
-            android:textStyle="bold"
-            android:id="@+id/categoryNameTV"
-            />
-    </LinearLayout>
-</androidx.cardview.widget.CardView>-->
-
 <com.google.android.material.card.MaterialCardView
     xmlns:android="http://schemas.android.com/apk/res/android"
     style="Widget.MaterialComponents.CardView"
@@ -39,7 +7,7 @@
     android:layout_margin="8dp"
     android:focusable="true"
     android:clickable="true"
-
+    android:backgroundTint="#C7CBE4"
     android:background="?android:attr/selectableItemBackground">
 
     <LinearLayout
