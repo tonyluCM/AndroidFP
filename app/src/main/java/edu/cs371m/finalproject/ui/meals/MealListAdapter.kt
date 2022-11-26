@@ -68,21 +68,24 @@ class MealListAdapter(private val viewModel: MainViewModel,
             }
             rowMealBinding.rowFav.setOnClickListener {
                 // Toggle Favorite
-                if(FirebaseAuth.getInstance().currentUser!=null) {
+
                     val loc = getItem(adapterPosition)
                     loc.let {
                         if (viewModel.isFavorite(it)) {
                             viewModel.removeFavorite(it)
                         } else {
-                            viewModel.addFavorite(it)
+                            if(FirebaseAuth.getInstance().currentUser!=null) {
+                                viewModel.addFavorite(it)
+                            }
+                            else
+                            {
+                                Toast.makeText(rowMealBinding.rowFav.context,"Please sign in to access Favorite feature~",Toast.LENGTH_SHORT).show()
+                            }
                         }
                         notifyItemChanged(adapterPosition)
                     }
-                }
-                else
-                {
-                    Toast.makeText(it.context,"Please sign in to access favorite feature~",Toast.LENGTH_SHORT).show()
-                }
+
+
             }
         }
         }

@@ -22,6 +22,7 @@ import edu.cs371m.finalproject.databinding.ActivityMainBinding
 import edu.cs371m.finalproject.ui.*
 import edu.cs371m.finalproject.ui.categories.Categories
 import edu.cs371m.finalproject.ui.meals.favorites
+import android.widget.Toast
 
 
 class MainActivity : AppCompatActivity() {
@@ -76,15 +77,21 @@ class MainActivity : AppCompatActivity() {
     }
     fun actionBarLaunchFavorites() {
         // XXX Write me actionBarBinding
-                actionBarBinding!!.actionFavorite.setOnClickListener {
-                    if(viewModel.observeTitle().value != "Favorites") {
+
+            actionBarBinding!!.actionFavorite.setOnClickListener {
+                if (viewModel.observeTitle().value != "Favorites") {
+                    if (FirebaseAuth.getInstance().currentUser != null) {
                         supportFragmentManager.commit {
                             replace(R.id.main_frame, favorites.newInstance(), favoritesFragTag)
                             setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE)
                         }
                     }
+                    else
+                    {
+                        Toast.makeText(this,"Please sign in to access favorite list~",Toast.LENGTH_SHORT).show()
+                    }
                 }
-
+            }
 
     }
 

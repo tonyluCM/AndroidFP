@@ -14,6 +14,7 @@ import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.commit
 import androidx.lifecycle.Lifecycle
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.google.firebase.auth.FirebaseAuth
 import edu.cs371m.finalproject.MainActivity
 import edu.cs371m.finalproject.R
 import edu.cs371m.finalproject.ui.MainViewModel
@@ -105,6 +106,12 @@ class favorites : Fragment(){
                     return true
                 } else
                     return onMenuItemSelected(item)
+            }
+            override fun onPrepareMenu(menu: Menu) {
+                var signin = menu.findItem(R.id.action_signin)
+                var signout = menu.findItem(R.id.action_logout)
+                signin.setVisible(false)
+                signout.setVisible(false)
             }
         }, viewLifecycleOwner, Lifecycle.State.RESUMED)
     }
