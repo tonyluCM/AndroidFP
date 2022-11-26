@@ -70,7 +70,7 @@ class CategoryListAdapter(private val viewModel: MainViewModel,
 
         Glide.glideFetch(item.strCategoryThumb,item.strCategoryThumb,rowbinding.categoryThumbIV)
         rowbinding.categoryNameTV.text=item.strCategory
-
+        rowbinding.categoryDescTV.text=item.strCategoryDescription
         //categoryThumbIV subRowPic
         //categoryDescriptionTV subRowDetails
         //categoryNameTV subRowHeading
