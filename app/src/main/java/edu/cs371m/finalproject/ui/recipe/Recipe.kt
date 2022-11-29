@@ -29,7 +29,6 @@ class Recipe : AppCompatActivity()
         val callingBundle = activityThatCalled.extras
 
         binding.title.text = callingBundle?.getCharSequence(MainViewModel.mealNameKey).toString()
-        binding.titletv.text = callingBundle?.getCharSequence(MainViewModel.mealNameKey).toString()
 
         val frameVideo =
             "<html><body>Video From YouTube<br><iframe width=\"420\" height=\"315\" src=\"https://www.youtube.com/embed/nMyBC9staMU\" frameborder=\"0\" allowfullscreen></iframe></body></html>"
