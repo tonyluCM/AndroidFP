@@ -2,11 +2,12 @@ package edu.cs371m.finalproject.ui.recipe
 
 
 import android.os.Bundle
-import android.text.method.ScrollingMovementMethod
 import android.view.MenuItem
-import edu.cs371m.finalproject.databinding.ActivityOneRecipeBinding
+import android.webkit.WebSettings
+import android.webkit.WebView
+import android.webkit.WebViewClient
 import androidx.appcompat.app.AppCompatActivity
-import edu.cs371m.finalproject.glide.Glide
+import edu.cs371m.finalproject.databinding.ActivityOneRecipeBinding
 import edu.cs371m.finalproject.ui.MainViewModel
 
 
@@ -23,20 +24,24 @@ class Recipe : AppCompatActivity()
         setSupportActionBar(binding.mytoolbar)
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
         val activityThatCalled = intent
+
         // Get the data that was sent
         val callingBundle = activityThatCalled.extras
 
         binding.title.text = callingBundle?.getCharSequence(MainViewModel.mealNameKey).toString()
         binding.titletv.text = callingBundle?.getCharSequence(MainViewModel.mealNameKey).toString()
-        binding.onepostst.text = callingBundle?.getCharSequence(MainViewModel.mealInstructionsKey)
-        binding.onepostst.movementMethod = ScrollingMovementMethod()
-        val imageurl = callingBundle?.getString(MainViewModel.mealThumbLinkKey)
-        val thumbnailurl = callingBundle?.getString(MainViewModel.mealThumbLinkKey)
-        if (imageurl != null && thumbnailurl != null) {
-            Glide.glideFetch(imageurl, thumbnailurl, binding.onepostimage)
-        }
 
+        val frameVideo =
+            "<html><body>Video From YouTube<br><iframe width=\"420\" height=\"315\" src=\"https://www.youtube.com/embed/nMyBC9staMU\" frameborder=\"0\" allowfullscreen></iframe></body></html>"
 
+        binding.recipeVideo.setWebViewClient(object : WebViewClient() {
+            override fun shouldOverrideUrlLoading(view: WebView, url: String): Boolean {
+                return false
+            }
+        })
+        val webSettings: WebSettings = binding.recipeVideo.getSettings()
+        webSettings.javaScriptEnabled = true
+        binding.recipeVideo.loadData(frameVideo, "text/html", "utf-8")
     }
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         // Handle action bar item clicks here. The action bar will
