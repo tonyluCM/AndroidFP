@@ -50,7 +50,7 @@ class Recipe : Fragment(), TabLayout.OnTabSelectedListener
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         setHasOptionsMenu(true)
-        (requireActivity() as MainActivity).supportActionBar!!.setDisplayHomeAsUpEnabled(true)
+        //(requireActivity() as MainActivity).supportActionBar!!.setDisplayHomeAsUpEnabled(true)
         var temp = (requireActivity() as MainActivity).findViewById<EditText>(R.id.actionSearch)
         temp.visibility = View.INVISIBLE
 
@@ -84,7 +84,6 @@ class Recipe : Fragment(), TabLayout.OnTabSelectedListener
         // automatically handle clicks on the Home/Up button, so long
         // as you specify a parent activity in AndroidManifest.xml.
         val id = item.itemId
-
         return if (id == android.R.id.home) {
             // If user clicks "up", then it it as if they clicked OK.  We commit
             // changes and return to parent
