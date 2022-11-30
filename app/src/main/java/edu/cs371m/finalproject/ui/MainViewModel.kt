@@ -22,7 +22,7 @@ class MainViewModel : ViewModel() {
     private var title = MutableLiveData<String>()
     private var searchTerm = MutableLiveData<String>()
     private var mealName = MutableLiveData<String>()
-    //private var searchTerm = MutableLiveData<String>()
+
 
     private var mealCategory = MutableLiveData<String>().apply{
         value = "Beef"
@@ -133,14 +133,6 @@ class MainViewModel : ViewModel() {
         }
     }
 
-    // Looks pointless, but if LiveData is set up properly, it will fetch posts
-    // from the network
-   //fun repoFetch() {
-     //   val fetch = subreddit.value
-     //   subreddit.value = fetch
-    //}
-
-    //Tao
     fun setMealCategory(tempcategory:String)
     {
         mealCategory.value = tempcategory

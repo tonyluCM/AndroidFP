@@ -58,9 +58,7 @@ class favorites : Fragment(){
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         Log.d(javaClass.simpleName, "onViewCreated")
         setDisplayHomeAsUpEnabled(true)
-        // XXX Write me
-        // Setting itemAnimator = null on your recycler view might get rid of an annoying
-        // flicker
+
         initAdapter(binding)
         binding.swipeRefreshLayout.setOnRefreshListener {
             binding.swipeRefreshLayout.isRefreshing=false
@@ -92,9 +90,9 @@ class favorites : Fragment(){
             override fun onCreateMenu(menu: Menu, menuInflater: MenuInflater) {
                 // Menu is already inflated by main activity
             }
-            // XXX Write me, onMenuItemSelected
+
             override fun onMenuItemSelected(item: MenuItem): Boolean {
-                //same as what is in hw3 media player
+
                 val id = item.itemId
                 if (id == android.R.id.home) {
                     viewModel.setTitleToCategory()
@@ -117,7 +115,6 @@ class favorites : Fragment(){
     }
 
     override fun onDestroyView() {
-        // XXX Write me
         // Don't let back to home button stay when we exit favorites
         setDisplayHomeAsUpEnabled(false)
         super.onDestroyView()

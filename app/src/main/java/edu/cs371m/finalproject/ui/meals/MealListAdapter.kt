@@ -78,10 +78,7 @@ class MealListAdapter(private val viewModel: MainViewModel,
                         ).show()
                     }
                 }
-                //repo-fetch similar
-              /*  viewModel.setSubredditToTitle()
-                viewModel.setTitleToSubreddit()
-                viewModel.netPosts()*/
+
             }
             rowMealBinding.rowFav.setOnClickListener {
                 // Toggle Favorite
@@ -106,9 +103,7 @@ class MealListAdapter(private val viewModel: MainViewModel,
             }
         }
         }
-    // XXX Write me.
-    // NB: This one-liner will exit the current fragment
-    // fragmentActivity.supportFragmentManager.popBackStack()
+
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): VH {
         val rowMealBinding = RowMealsBinding.inflate(LayoutInflater.from(parent.context),
             parent, false)
@@ -126,8 +121,7 @@ class MealListAdapter(private val viewModel: MainViewModel,
         else {
             rowbinding.rowFav.setImageResource(R.drawable.ic_favorite_border_black_24dp)
         }
-      //mealThumbIV subRowPic
-        //mealNameTV subRowHeading
+
 
     }
     class MealDiff : DiffUtil.ItemCallback<Meal>() {

@@ -57,7 +57,7 @@ class Meals : Fragment() {
         binding.swipeRefreshLayout.setOnRefreshListener {
             binding.swipeRefreshLayout.isRefreshing=false
         }
-       // viewModel.setTitle("Pick")
+
         var temp = (requireActivity() as MainActivity).findViewById<EditText>(R.id.actionSearch)
         temp.visibility = View.VISIBLE
         viewModel.observeMealsInCategory().observe(viewLifecycleOwner)

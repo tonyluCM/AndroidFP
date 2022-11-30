@@ -45,10 +45,6 @@ class CategoryListAdapter(private val viewModel: MainViewModel,
                    setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE)
                 }
 
-                //repo-fetch similar
-               // viewModel.setSubredditToTitle()
-               // viewModel.setTitleToSubreddit()
-
                     viewModel.setTitle(clickedCategory)
                     viewModel.setMealCategory(clickedCategory)
                     viewModel.setTitleToCategory()
@@ -58,9 +54,7 @@ class CategoryListAdapter(private val viewModel: MainViewModel,
 
         }
         }
-    // XXX Write me.
-    // NB: This one-liner will exit the current fragment
-    // fragmentActivity.supportFragmentManager.popBackStack()
+
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): VH {
         val rowcategoryBinding = RowCategoryBinding.inflate(LayoutInflater.from(parent.context),
             parent, false)
@@ -75,15 +69,6 @@ class CategoryListAdapter(private val viewModel: MainViewModel,
         rowbinding.categoryNameTV.text=item.strCategory
         rowbinding.categoryDescTV.text=item.strCategoryDescription
         rowbinding.categoryDescTV.movementMethod = ScrollingMovementMethod()
-
-
-
-        //categoryThumbIV subRowPic
-        //categoryDescriptionTV subRowDetails
-        //categoryNameTV subRowHeading
-        // NB: This one-liner will exit the current fragment
-        //fragmentActivity.supportFragmentManager.popBackStack()
-
 
     }
 

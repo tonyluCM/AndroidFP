@@ -185,14 +185,10 @@ class MainActivity : AppCompatActivity() {
 
 
         addInitialPage()
-       // initDebug()
         initTitleObservers()
-       // actionBarTitleLaunchSubreddit()
         actionBarTitleLaunchCategories()
         actionBarLaunchFavorites()
         actionBarSearch()
-        //viewModel.setTitleToSubreddit()
-        //AuthInit(viewModel, signInLauncher)
 
     }
 }
