@@ -1,36 +1,32 @@
 package edu.cs371m.finalproject.ui.recipe
 
-import android.util.Log
+
 import android.os.Bundle
-import android.text.SpannableString
 import android.view.LayoutInflater
 import android.view.MenuItem
 import android.view.View
 import android.view.ViewGroup
-import android.webkit.WebSettings
-import android.webkit.WebView
-import android.webkit.WebViewClient
+
 import android.widget.EditText
-import androidx.activity.viewModels
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.FragmentManager
 import androidx.fragment.app.activityViewModels
-import edu.cs371m.finalproject.databinding.FragmentRecipeBinding
-import androidx.fragment.app.FragmentActivity
 import androidx.fragment.app.FragmentTransaction
 import androidx.fragment.app.commit
-import androidx.fragment.app.activityViewModels
-import androidx.lifecycle.ViewModel
+import com.google.android.material.tabs.TabLayout
 import edu.cs371m.finalproject.MainActivity
-import edu.cs371m.finalproject.databinding.ActionBarBinding
 import edu.cs371m.finalproject.ui.MainViewModel
 import edu.cs371m.finalproject.R
-import edu.cs371m.finalproject.databinding.FragmentRvBinding
+import edu.cs371m.finalproject.databinding.FragmentRecipeBinding
 import edu.cs371m.finalproject.ui.meals.Meals
 
 
-class Recipe : Fragment()
+class Recipe : Fragment(), TabLayout.OnTabSelectedListener
 {
+
+
     private var _binding : FragmentRecipeBinding? = null
+    private var fragments : Fragment? =null
     // This property is only valid between onCreateView and onDestroyView
     private val binding get() = _binding!!
     private val viewModel: MainViewModel by activityViewModels()
@@ -40,6 +36,7 @@ class Recipe : Fragment()
             return Recipe()
         }
     }
+
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -57,31 +54,30 @@ class Recipe : Fragment()
         var temp = (requireActivity() as MainActivity).findViewById<EditText>(R.id.actionSearch)
         temp.visibility = View.INVISIBLE
 
+
+        val tabLayout = binding.tabLayout
+        fragments = IngredientsFragment()
+
+        val manager: FragmentManager? = getActivity()?.getSupportFragmentManager()
+        val transaction : FragmentTransaction? = manager?.beginTransaction()
+        if (transaction != null) {
+            fragments?.let { transaction.replace(R.id.framelayout, it) }
+            transaction.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN)
+            transaction.commit()
+        }
+        tabLayout.addOnTabSelectedListener(this)
+
+
         viewModel.observeMeal().observe(viewLifecycleOwner)
         {
-            binding.title.text = it[0].strMeal
-             temp2 = it[0].strCategory.toString()
-            //video
-            //there is a problem since the link is watch?=nvm... not embed/...
-            val temp3 = it[0].strYoutube.toString()
-            val temp4 = temp3.replace("watch?v=","embed/")
-            val framevideo = "<html><body>Video From YouTube<br><iframe width=\"420\" height=\"315\" src=\"${temp4.toString()}\" frameborder=\"0\" allowfullscreen></iframe></body></html>"
-            //val framevideo = "<html><body>Video From YouTube<br><iframe width=\"420\" height=\"315\" src=\"https://www.youtube.com/embed/nMyBC9staMU\" frameborder=\"0\" allowfullscreen></iframe></body></html>"
-
-            binding.recipeVideo.setWebViewClient(object : WebViewClient() {
-                override fun shouldOverrideUrlLoading(view: WebView, url: String): Boolean {
-                    return false
-                }
-            })
-            val webSettings: WebSettings = binding.recipeVideo.getSettings()
-            webSettings.javaScriptEnabled = true
-            binding.recipeVideo.loadData(framevideo, "text/html", "utf-8")
+            temp2 = it[0].strCategory.toString()
 
         }
 
 
-
     }
+
+
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         // Handle action bar item clicks here. The action bar will
@@ -94,7 +90,7 @@ class Recipe : Fragment()
             // changes and return to parent
             (requireActivity() as MainActivity).supportActionBar!!.setDisplayHomeAsUpEnabled(false)
             onDestroyView()
-            val clickedCategory = temp2.toString()
+            val clickedCategory = temp2
             //exit current fragment
 
             //go to meals
@@ -104,9 +100,6 @@ class Recipe : Fragment()
                 setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE)
             }
 
-            //repo-fetch similar
-            // viewModel.setSubredditToTitle()
-            // viewModel.setTitleToSubreddit()
             viewModel.setTitle(clickedCategory)
             viewModel.setMealCategory(clickedCategory)
             viewModel.setTitleToCategory()
@@ -118,6 +111,37 @@ class Recipe : Fragment()
     override fun onDestroyView() {
         _binding = null
         super.onDestroyView()
+    }
+
+    override fun onTabSelected(tab: TabLayout.Tab?) {
+       when(tab?.position){
+
+           0->{
+               fragments = IngredientsFragment()
+           }
+           1->{
+               fragments = InstructionFragment()
+           }
+           2->{
+               fragments = VideoFragment()
+           }
+       }
+
+        val manager: FragmentManager? = getActivity()?.getSupportFragmentManager()
+        val transaction : FragmentTransaction? = manager?.beginTransaction()
+        if (transaction != null) {
+            fragments?.let { transaction.replace(R.id.framelayout, it) }
+            transaction.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN)
+            transaction.commit()
+        }
+    }
+
+    override fun onTabUnselected(tab: TabLayout.Tab?) {
+
+    }
+
+    override fun onTabReselected(tab: TabLayout.Tab?) {
+
     }
 
 }
