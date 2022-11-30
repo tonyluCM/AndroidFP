@@ -5,11 +5,10 @@
     android:layout_height="match_parent"
     tools:context=".ui.recipe.IngredientsFragment">
 
-    <!-- TODO: Update blank fragment layout -->
-    <TextView
+
+    <ListView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/ingredient1"
-        android:text="Ingredients Fragment" />
+        android:id="@+id/ingredients_list" />
 
 </FrameLayout>
