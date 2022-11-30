@@ -1,105 +1,88 @@
 package edu.cs371m.finalproject.ui.recipe
 
-
-import android.annotation.TargetApi
-import android.graphics.Bitmap
-import android.graphics.BitmapFactory
-import android.os.Build
+import android.util.Log
 import android.os.Bundle
+import android.text.SpannableString
+import android.view.LayoutInflater
 import android.view.MenuItem
 import android.view.View
-import android.webkit.PermissionRequest
-import android.webkit.WebChromeClient
+import android.view.ViewGroup
+import android.webkit.WebSettings
 import android.webkit.WebView
 import android.webkit.WebViewClient
-import android.widget.FrameLayout
-import androidx.appcompat.app.AppCompatActivity
-import edu.cs371m.finalproject.databinding.ActivityOneRecipeBinding
+import android.widget.EditText
+import androidx.activity.viewModels
+import androidx.fragment.app.Fragment
+import androidx.fragment.app.activityViewModels
+import edu.cs371m.finalproject.databinding.FragmentRecipeBinding
+import androidx.fragment.app.FragmentActivity
+import androidx.fragment.app.FragmentTransaction
+import androidx.fragment.app.commit
+import androidx.fragment.app.activityViewModels
+import androidx.lifecycle.ViewModel
+import edu.cs371m.finalproject.MainActivity
+import edu.cs371m.finalproject.databinding.ActionBarBinding
 import edu.cs371m.finalproject.ui.MainViewModel
+import edu.cs371m.finalproject.R
+import edu.cs371m.finalproject.databinding.FragmentRvBinding
+import edu.cs371m.finalproject.ui.meals.Meals
 
 
-class Recipe : AppCompatActivity()
+class Recipe : Fragment()
 {
-    private lateinit var binding : ActivityOneRecipeBinding
-    private lateinit var webView: WebView
-
-    private inner class CustomChromeClient : WebChromeClient() {
-        private var mCustomView: View? = null
-        private var mCustomViewCallback: CustomViewCallback? = null
-        private var mOriginalOrientation = 0
-        private var mOriginalSystemUiVisibility = 0
-        override fun getDefaultVideoPoster(): Bitmap? {
-            return if (mCustomView == null) {
-                null
-            } else BitmapFactory.decodeResource(applicationContext.resources, 2130837573)
-        }
-
-        override fun onHideCustomView() {
-            (window.decorView as FrameLayout).removeView(mCustomView)
-            mCustomView = null
-            window.decorView.systemUiVisibility = mOriginalSystemUiVisibility
-            requestedOrientation = mOriginalOrientation
-            mCustomViewCallback!!.onCustomViewHidden()
-            mCustomViewCallback = null
-        }
-
-        override fun onShowCustomView(
-            paramView: View?,
-            paramCustomViewCallback: CustomViewCallback?
-        ) {
-            if (mCustomView != null) {
-                onHideCustomView()
-                return
-            }
-            mCustomView = paramView
-            mOriginalSystemUiVisibility = window.decorView.systemUiVisibility
-            mOriginalOrientation = requestedOrientation
-            mCustomViewCallback = paramCustomViewCallback
-            (window.decorView as FrameLayout).addView(mCustomView, FrameLayout.LayoutParams(-1, -1))
-            window.decorView.systemUiVisibility = 3846 or View.SYSTEM_UI_FLAG_LAYOUT_STABLE
+    private var _binding : FragmentRecipeBinding? = null
+    // This property is only valid between onCreateView and onDestroyView
+    private val binding get() = _binding!!
+    private val viewModel: MainViewModel by activityViewModels()
+    lateinit var temp2: String
+    companion object {
+        fun newInstance(): Recipe {
+            return Recipe()
         }
     }
+    override fun onCreateView(
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View {
+        _binding = FragmentRecipeBinding.inflate(inflater, container, false)
+        return binding.root
+    }
 
-    override fun onCreate(savedInstanceState: Bundle?)
-    {
-        super.onCreate(savedInstanceState)
-        binding = ActivityOneRecipeBinding.inflate(layoutInflater)
-        setContentView(binding.root)
-        setSupportActionBar(binding.mytoolbar)
-        supportActionBar?.setDisplayHomeAsUpEnabled(true)
-        val activityThatCalled = intent
+    // XXX Write me, onViewCreated
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        setHasOptionsMenu(true)
+        (requireActivity() as MainActivity).supportActionBar!!.setDisplayHomeAsUpEnabled(true)
+        var temp = (requireActivity() as MainActivity).findViewById<EditText>(R.id.actionSearch)
+        temp.visibility = View.INVISIBLE
 
-        // Get the data that was sent
-        val callingBundle = activityThatCalled.extras
+        viewModel.observeMeal().observe(viewLifecycleOwner)
+        {
+            binding.title.text = it[0].strMeal
+             temp2 = it[0].strCategory.toString()
+            //video
+            //there is a problem since the link is watch?=nvm... not embed/...
+            val temp3 = it[0].strYoutube.toString()
+            val temp4 = temp3.replace("watch?v=","embed/")
+            val framevideo = "<html><body>Video From YouTube<br><iframe width=\"420\" height=\"315\" src=\"${temp4.toString()}\" frameborder=\"0\" allowfullscreen></iframe></body></html>"
+            //val framevideo = "<html><body>Video From YouTube<br><iframe width=\"420\" height=\"315\" src=\"https://www.youtube.com/embed/nMyBC9staMU\" frameborder=\"0\" allowfullscreen></iframe></body></html>"
 
-        binding.title.text = callingBundle?.getCharSequence(MainViewModel.mealNameKey).toString()
+            binding.recipeVideo.setWebViewClient(object : WebViewClient() {
+                override fun shouldOverrideUrlLoading(view: WebView, url: String): Boolean {
+                    return false
+                }
+            })
+            val webSettings: WebSettings = binding.recipeVideo.getSettings()
+            webSettings.javaScriptEnabled = true
+            binding.recipeVideo.loadData(framevideo, "text/html", "utf-8")
 
-        webView = binding.recipeVideo
-
-        webView.webViewClient = WebViewClient()
-        webView.webChromeClient = CustomChromeClient() // Full-screen support
-        val webSetting = webView.settings
-        webSetting.javaScriptEnabled = true
-        webSetting.allowFileAccess = true
-        webView.webChromeClient = object : WebChromeClient() {
-            @TargetApi(Build.VERSION_CODES.LOLLIPOP)
-            override fun onPermissionRequest(request: PermissionRequest) {
-                request.grant(request.resources)
-            }
         }
-        if (savedInstanceState == null) {
-            webView.loadUrl("https://www.youtube.com/embed/nMyBC9staMU")
-        }
+
+
 
     }
-    override fun onSaveInstanceState(outState: Bundle) {
-        super.onSaveInstanceState(outState)
-        webView.saveState(outState)
-    }
-    override fun onRestoreInstanceState(savedInstanceState: Bundle) {
-        super.onRestoreInstanceState(savedInstanceState)
-        webView.restoreState(savedInstanceState)
-    }
+
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         // Handle action bar item clicks here. The action bar will
         // automatically handle clicks on the Home/Up button, so long
@@ -109,8 +92,32 @@ class Recipe : AppCompatActivity()
         return if (id == android.R.id.home) {
             // If user clicks "up", then it it as if they clicked OK.  We commit
             // changes and return to parent
-            finish()
+            (requireActivity() as MainActivity).supportActionBar!!.setDisplayHomeAsUpEnabled(false)
+            onDestroyView()
+            val clickedCategory = temp2.toString()
+            //exit current fragment
+
+            //go to meals
+
+            this.requireActivity().supportFragmentManager.commit{
+                replace(R.id.main_frame, Meals.newInstance())
+                setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE)
+            }
+
+            //repo-fetch similar
+            // viewModel.setSubredditToTitle()
+            // viewModel.setTitleToSubreddit()
+            viewModel.setTitle(clickedCategory)
+            viewModel.setMealCategory(clickedCategory)
+            viewModel.setTitleToCategory()
+            viewModel.netMealsInCategory()
             true
         } else super.onOptionsItemSelected(item)
     }
+
+    override fun onDestroyView() {
+        _binding = null
+        super.onDestroyView()
+    }
+
 }

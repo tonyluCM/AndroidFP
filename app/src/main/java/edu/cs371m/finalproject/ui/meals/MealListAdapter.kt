@@ -4,6 +4,8 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.fragment.app.FragmentActivity
+import androidx.fragment.app.FragmentTransaction
+import androidx.fragment.app.commit
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
@@ -13,6 +15,7 @@ import edu.cs371m.finalproject.glide.Glide
 import edu.cs371m.finalproject.ui.MainViewModel
 import com.google.firebase.auth.FirebaseAuth
 import edu.cs371m.finalproject.R
+import edu.cs371m.finalproject.ui.recipe.Recipe
 import kotlin.coroutines.coroutineContext
 
 // NB: Could probably unify with PostRowAdapter if we had two
@@ -34,24 +37,38 @@ class MealListAdapter(private val viewModel: MainViewModel,
             //XXX Write me.
             rowMealBinding.root.setOnClickListener{
                 if(FirebaseAuth.getInstance().currentUser!=null) {
-                    MainViewModel.doOneMealRecipe(it.context, getItem(adapterPosition))
                     val clickedMealName = getItem(adapterPosition).strMeal.toString()
                     val clickedMealId = getItem(adapterPosition).idMeal.toString()
+
+                    //fragmentActivity.supportFragmentManager.popBackStack()
+                    //go to meals
+                    fragmentActivity.supportFragmentManager.commit{
+                        replace(R.id.main_frame,Recipe.newInstance() )
+                        setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE)
+                    }
+
                     viewModel.setTitle(clickedMealName)
                     viewModel.setMealId(clickedMealId)
                     viewModel.netMeal()
+
                 }
                 else
                 {
                     ++MealListAdapter.itemCount
                     if(MealListAdapter.itemCount<=2)
                     {
-                        MainViewModel.doOneMealRecipe(it.context, getItem(adapterPosition))
                         val clickedMealName = getItem(adapterPosition).strMeal.toString()
                         val clickedMealId = getItem(adapterPosition).idMeal.toString()
+                        //fragmentActivity.supportFragmentManager.popBackStack()
+                        //go to meals
+                        fragmentActivity.supportFragmentManager.commit{
+                            replace(R.id.main_frame,Recipe.newInstance() )
+                            setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE)
+                        }
                         viewModel.setTitle(clickedMealName)
                         viewModel.setMealId(clickedMealId)
                         viewModel.netMeal()
+                        //MainViewModel.doOneMealRecipe(it.context, getItem(adapterPosition))
                     }
                     else {
                         Toast.makeText(

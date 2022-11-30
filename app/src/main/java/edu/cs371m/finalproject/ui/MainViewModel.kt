@@ -223,27 +223,6 @@ class MainViewModel : ViewModel() {
         searchTerm.value = s
     }
 
-    // Convenient place to put it as it is shared
-    companion object {
-        const val mealIdKey = "mealIdKey"
-        const val mealNameKey = "mealNameKey"
-        const val mealImgKey = "mealImgKey"
-        const val mealCategoryKey = "mealCategoryKey"
-        const val mealInstructionsKey = "mealInstructionsKey"
-        const val mealYoutubeLinkKey = "mealYoutubeLinkKey"
-        const val mealThumbLinkKey = "mealThumbLinkKey"
 
-        fun doOneMealRecipe(context: Context, meal: Meal) {
-            val oneMealRecipeIntent = Intent(context, Recipe::class.java)
-            oneMealRecipeIntent.putExtra(mealIdKey,meal.idMeal)
-            oneMealRecipeIntent.putExtra(mealNameKey,meal.strMeal)
-            oneMealRecipeIntent.putExtra(mealImgKey,meal.strMealThumb)
-            oneMealRecipeIntent.putExtra(mealCategoryKey,meal.strCategory)
-            oneMealRecipeIntent.putExtra(mealInstructionsKey,meal.strInstructions)
-            oneMealRecipeIntent.putExtra(mealYoutubeLinkKey,meal.strYoutube)
-            oneMealRecipeIntent.putExtra(mealYoutubeLinkKey,meal.strMealThumb)
 
-            context.startActivity(oneMealRecipeIntent)
-        }
-    }
 }
