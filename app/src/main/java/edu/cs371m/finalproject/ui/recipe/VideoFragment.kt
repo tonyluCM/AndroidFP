@@ -10,6 +10,7 @@ import android.view.MenuItem
 import android.view.View
 import android.view.ViewGroup
 import android.webkit.*
+import android.webkit.WebChromeClient.CustomViewCallback
 import android.widget.FrameLayout
 import androidx.core.view.doOnLayout
 import androidx.fragment.app.*
@@ -66,16 +67,32 @@ class VideoFragment : Fragment() {
 
             val framevideo = "<html><body><iframe width=\"400\" height=\"300\" src=\"${temp4}\" frameborder=\"0\" allowfullscreen></iframe></body></html>"
             //val framevideo = "<html><body>Video From YouTube<br><iframe width=\"420\" height=\"315\" src=\"https://www.youtube.com/embed/nMyBC9staMU\" frameborder=\"0\" allowfullscreen></iframe></body></html>"
+            val webSettings: WebSettings = binding.recipeVideo.getSettings()
+            webSettings.javaScriptEnabled = true
+            webSettings.setSupportZoom(true)
+            webSettings.builtInZoomControls = true
+            webSettings.displayZoomControls = false
 
-            binding.recipeVideo.setWebViewClient(object : WebViewClient() {
+            binding.recipeVideo.webViewClient = object : WebViewClient() {
                 override fun shouldOverrideUrlLoading(view: WebView, url: String): Boolean {
                     return false
                 }
-            })
-            val webSettings: WebSettings = binding.recipeVideo.getSettings()
-            webSettings.javaScriptEnabled = true
-           // webSettings.loadWithOverviewMode=true
-          //  webSettings.useWideViewPort=true
+
+            }
+            binding.recipeVideo.webChromeClient = object:WebChromeClient(){
+                override fun onShowCustomView(view: View?, callback: CustomViewCallback?) {
+                    super.onShowCustomView(view, callback)
+                    binding.recipeVideo.visibility=View.GONE
+                    binding.customView.visibility=View.VISIBLE
+                    binding.customView.addView(view)
+                }
+
+                override fun onHideCustomView() {
+                    super.onHideCustomView()
+                    binding.recipeVideo.visibility=View.VISIBLE
+                    binding.customView.visibility=View.GONE
+                }
+            }
 
             binding.recipeVideo.loadData(framevideo, "text/html", "utf-8")
 

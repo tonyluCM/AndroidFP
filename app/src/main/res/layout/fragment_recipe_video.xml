@@ -3,15 +3,20 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:background="#E4ECFF"
     tools:context=".ui.recipe.VideoFragment">
 
 
         <WebView
             android:id="@+id/recipeVideo"
+            android:layout_margin="8dp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"/>
 
-
+<FrameLayout
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+        android:id="@+id/customView"
+        android:visibility="gone"/>
 
 </FrameLayout>

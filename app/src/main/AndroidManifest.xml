@@ -8,20 +8,6 @@
 
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
 
-    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"/>
-
-    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
-
-    <uses-permission android:name="android.permission.CAMERA" />
-
-    <uses-feature android:name="android.hardware.camera" android:required="false" />
-
-    <uses-permission android:name="android.permission.RECORD_AUDIO" />
-
-    <uses-permission android:name="android.permission.MODIFY_AUDIO_SETTINGS" />
-    <uses-feature android:name="android.hardware.microphone"/>
-    <uses-permission android:name="android.permission.AUDIO_CAPTURE" />
-    <uses-permission android:name="android.permission.MICROPHONE" />
     <application
             android:allowBackup="true"
             android:icon="@mipmap/ic_launcher"
@@ -30,7 +16,8 @@
             android:supportsRtl="true"
             android:theme="@style/AppTheme.NoActionBar">
         <activity android:name=".MainActivity"
-                android:exported="true">
+                android:exported="true"
+            android:configChanges="keyboardHidden|orientation|screenSize">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
 
@@ -38,30 +25,21 @@
             </intent-filter>
         </activity>
 
-      <!--  <activity
-            android:name=".ui.OnePost"
-            android:parentActivityName=".MainActivity"
-            />
-        <activity
-            android:name=".ui.Favorites"
-            android:parentActivityName=".MainActivity" />
-        <activity
-            android:name=".ui.subreddits.Subreddits"
-            android:parentActivityName=".MainActivity"
-            />
--->
 
         <activity
             android:name=".ui.recipe.Recipe"
+            android:configChanges="keyboardHidden|orientation|screenSize"
             android:parentActivityName=".MainActivity"
             />
 
         <activity
             android:name=".ui.categories.Categories"
+            android:configChanges="keyboardHidden|orientation|screenSize"
             android:parentActivityName=".MainActivity"
             />
         <activity
             android:name=".ui.meals.Meals"
+            android:configChanges="keyboardHidden|orientation|screenSize"
             android:parentActivityName=".MainActivity"
             />
 
