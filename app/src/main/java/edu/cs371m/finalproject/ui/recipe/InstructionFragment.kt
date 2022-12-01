@@ -1,6 +1,7 @@
 package edu.cs371m.finalproject.ui.recipe
 
 import android.os.Bundle
+import android.text.method.ScrollingMovementMethod
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.MenuItem
@@ -51,9 +52,8 @@ class InstructionFragment : Fragment() {
             //  binding.title.text = it[0].strMeal
             temp2 = it[0].strCategory.toString()
 
-            println("=========instructions:"+it[0].strInstructions)
             binding.instructions.text=it[0].strInstructions
-
+            binding.instructions.setMovementMethod(ScrollingMovementMethod.getInstance());
 
         }
 
