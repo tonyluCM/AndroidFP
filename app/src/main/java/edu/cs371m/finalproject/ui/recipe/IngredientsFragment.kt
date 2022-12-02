@@ -52,65 +52,65 @@ class IngredientsFragment : Fragment() {
             val myArrayList = ArrayList<String>()
 
             if(it[0].strIngredient1!=null && it[0].strIngredient1?.isNotBlank() == true){
-                myArrayList.add(it[0].strIngredient1 +" -------------- "+it[0].strMeasure1)
+                myArrayList.add(it[0].strIngredient1 +" ------------------------ "+it[0].strMeasure1)
             }
             if(it[0].strIngredient2!=null && it[0].strIngredient2?.isNotBlank() == true){
-                myArrayList.add(it[0].strIngredient2 +" -------------- "+it[0].strMeasure2)
+                myArrayList.add(it[0].strIngredient2 +" ------------------------ "+it[0].strMeasure2)
             }
             if(it[0].strIngredient3!=null && it[0].strIngredient3?.isNotBlank() == true){
-                myArrayList.add(it[0].strIngredient3 +" -------------- "+it[0].strMeasure3)
+                myArrayList.add(it[0].strIngredient3 +" ------------------------ "+it[0].strMeasure3)
             }
             if(it[0].strIngredient4!=null && it[0].strIngredient4?.isNotBlank() == true){
-                myArrayList.add(it[0].strIngredient4 +" -------------- "+it[0].strMeasure4)
+                myArrayList.add(it[0].strIngredient4 +" ------------------------ "+it[0].strMeasure4)
             }
             if(it[0].strIngredient5!=null && it[0].strIngredient5?.isNotBlank() == true){
-                myArrayList.add(it[0].strIngredient5 +" -------------- "+it[0].strMeasure5)
+                myArrayList.add(it[0].strIngredient5 +" ------------------------ "+it[0].strMeasure5)
             }
             if(it[0].strIngredient6!=null && it[0].strIngredient6?.isNotBlank() == true){
-                myArrayList.add(it[0].strIngredient6 +" -------------- "+it[0].strMeasure6)
+                myArrayList.add(it[0].strIngredient6 +" ------------------------ "+it[0].strMeasure6)
             }
             if(it[0].strIngredient7!=null && it[0].strIngredient7?.isNotBlank() == true){
-                myArrayList.add(it[0].strIngredient7 +" -------------- "+it[0].strMeasure7)
+                myArrayList.add(it[0].strIngredient7 +" ------------------------ "+it[0].strMeasure7)
             }
             if(it[0].strIngredient8!=null && it[0].strIngredient8?.isNotBlank() == true){
-                myArrayList.add(it[0].strIngredient8 +" -------------- "+it[0].strMeasure8)
+                myArrayList.add(it[0].strIngredient8 +" ------------------------ "+it[0].strMeasure8)
             }
             if(it[0].strIngredient9!=null && it[0].strIngredient9?.isNotBlank() == true){
-                myArrayList.add(it[0].strIngredient9 +" -------------- "+it[0].strMeasure9)
+                myArrayList.add(it[0].strIngredient9 +" ------------------------ "+it[0].strMeasure9)
             }
             if(it[0].strIngredient10!=null && it[0].strIngredient10?.isNotBlank() == true){
-                myArrayList.add(it[0].strIngredient10 +" -------------- "+it[0].strMeasure10)
+                myArrayList.add(it[0].strIngredient10 +" ------------------------ "+it[0].strMeasure10)
             }
 
             if(it[0].strIngredient11!=null && it[0].strIngredient11?.isNotBlank() == true){
-                myArrayList.add(it[0].strIngredient11 +" -------------- "+it[0].strMeasure11)
+                myArrayList.add(it[0].strIngredient11 +" ------------------------ "+it[0].strMeasure11)
             }
             if(it[0].strIngredient12!=null && it[0].strIngredient12?.isNotBlank() == true){
-                myArrayList.add(it[0].strIngredient12 +" -------------- "+it[0].strMeasure12)
+                myArrayList.add(it[0].strIngredient12 +" ------------------------ "+it[0].strMeasure12)
             }
             if(it[0].strIngredient13!=null && it[0].strIngredient13?.isNotBlank() == true){
-                myArrayList.add(it[0].strIngredient13 +" -------------- "+it[0].strMeasure13)
+                myArrayList.add(it[0].strIngredient13 +" ------------------------ "+it[0].strMeasure13)
             }
             if(it[0].strIngredient14!=null && it[0].strIngredient14?.isNotBlank() == true){
-                myArrayList.add(it[0].strIngredient14 +" -------------- "+it[0].strMeasure14)
+                myArrayList.add(it[0].strIngredient14 +" ------------------------ "+it[0].strMeasure14)
             }
             if(it[0].strIngredient15!=null && it[0].strIngredient15?.isNotBlank() == true){
-                myArrayList.add(it[0].strIngredient15 +" -------------- "+it[0].strMeasure15)
+                myArrayList.add(it[0].strIngredient15 +" ------------------------ "+it[0].strMeasure15)
             }
             if(it[0].strIngredient16!=null && it[0].strIngredient16?.isNotBlank() == true){
-                myArrayList.add(it[0].strIngredient16 +" -------------- "+it[0].strMeasure16)
+                myArrayList.add(it[0].strIngredient16 +" ------------------------ "+it[0].strMeasure16)
             }
             if(it[0].strIngredient17!=null && it[0].strIngredient17?.isNotBlank() == true){
-                myArrayList.add(it[0].strIngredient17 +" -------------- "+it[0].strMeasure17)
+                myArrayList.add(it[0].strIngredient17 +" ------------------------ "+it[0].strMeasure17)
             }
             if(it[0].strIngredient18!=null && it[0].strIngredient18?.isNotBlank() == true){
-                myArrayList.add(it[0].strIngredient18 +" -------------- "+it[0].strMeasure18)
+                myArrayList.add(it[0].strIngredient18 +" ------------------------ "+it[0].strMeasure18)
             }
             if(it[0].strIngredient19!=null && it[0].strIngredient19?.isNotBlank() == true){
-                myArrayList.add(it[0].strIngredient19 +" -------------- "+it[0].strMeasure19)
+                myArrayList.add(it[0].strIngredient19 +" ------------------------ "+it[0].strMeasure19)
             }
             if(it[0].strIngredient20!=null && it[0].strIngredient20?.isNotBlank() == true){
-                myArrayList.add(it[0].strIngredient20 +" -------------- "+it[0].strMeasure20)
+                myArrayList.add(it[0].strIngredient20 +" ------------------------ "+it[0].strMeasure20)
             }
             binding.ingredientsList.setAdapter(
                 getActivity()?.let { it1 ->
